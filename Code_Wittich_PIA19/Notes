@@ -1,0 +1,668 @@
+EARLY =====================================================================================
+
+
+
+python main.py -n C1O_16_L_NN_DRZM_ADA3_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NN_DRZM_ADA2_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA1_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA3_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA2_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA1_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA3_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA2_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA1_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA3_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA2_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA1_LATENT_EARLY_ZM --model VNET16L -cvd 1 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+
+EARLIER ====================================================================================
+
+python main.py -n C1O_16_L_NN_DRZM_ADA3_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NN_DRZM_ADA2_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA1_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA3_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA2_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA1_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA3_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA2_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA1_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA3_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA2_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA1_LATENT_EARLIER_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+
+EARLIER_B ====================================================================================
+
+
+python main.py -n C1O_16_L_NN_DRZM_ADA3_LATENT_EARLIER_NN --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NN_DRZM_ADA2_LATENT_EARLIER_NN --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA1_LATENT_EARLIER_NN --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA3_LATENT_EARLIER_NN --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA2_LATENT_EARLIER_NN --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA1_LATENT_EARLIER_NN --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+
+
+python main.py -n C1O_16_L_NNSC_DRZM_ADA3_LATENT_EARLIER_NN --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA2_LATENT_EARLIER_NN --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA1_LATENT_EARLIER_NN --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA3_LATENT_EARLIER_NN --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C3_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA2_LATENT_EARLIER_NN --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C2_20 --match early -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA1_LATENT_EARLIER_NN --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C1_20 --match early -b1 0.5 -al1w 2.0
+
+
+MIDDLE =====================================================================================
+
+
+python main.py -n C1O_16_L_NN_DRZM_ADA3_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C3_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NN_DRZM_ADA2_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C2_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA1_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C1_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA3_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C3_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA2_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C2_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA1_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C1_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA3_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C3_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA2_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C2_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA1_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C1_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA3_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C3_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA2_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C2_20 --match middle -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA1_LATENT_MIDDLE_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C1_20 --match middle -b1 0.5 -al1w 2.0
+
+
+END =====================================================================================
+
+
+python main.py -n C1O_16_L_NN_DRZM_ADA3_LATENT_END_ZM --model VNET16L -cvd 5 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C3_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NN_DRZM_ADA2_LATENT_END_ZM --model VNET16L -cvd 5 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C2_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA1_LATENT_END_ZM --model VNET16L -cvd 5 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C1_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NN_DRZM_ADA3_LATENT_END_ZM --model VNET16L -cvd 5 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C3_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA2_LATENT_END_ZM --model VNET16L -cvd 5 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C2_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NN_DRZM_ADA1_LATENT_END_ZM --model VNET16L -cvd 5 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C1_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA3_LATENT_END_ZM --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C3_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA2_LATENT_END_ZM --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C2_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA1_LATENT_END_ZM --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C1_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA3_LATENT_END_ZM --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C3_20 --match end -b1 0.5 -al1w 2.0
+
+
+python main.py -n C3O_16_L_NNSC_DRZM_ADA2_LATENT_END_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C2_20 --match end -b1 0.5 -al1w 2.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA1_LATENT_END_ZM --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C1_20 --match end -b1 0.5 -al1w 2.0
+
+
+
+
+========================================================================================================================
+
+VAIHINGEN
+
+python main.py -n V_16L_NN --model VNET16L -t V8 -fl -cvd 4 -sc 0 -b1 0.95 -dr 0.1 -as 0.1 -am 0.1
+python main.py -n V_16L_NNSC --model VNET16L -t V8 -fl -cvd 4 -sc 1 -b1 0.95 -dr 0.1 -as 0.1 -am 0.1
+
+
+END, ASPP =================================================
+
+
+python main.py -n C1O_16_L_NN_DRZM_ADA3_ASPP --model VNET16L -cvd 2 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C3_20 -b1 0.5 -al1w 1.0
+python main.py -n C1O_16_L_NN_DRZM_ADA2_ASPP --model VNET16L -cvd 2 -sc 0 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NN_DRZM -a C2_20 -b1 0.5 -al1w 1.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA3_ASPP --model VNET16L -cvd 2 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C3_20 -b1 0.5 -al1w 1.0
+python main.py -n C1O_16_L_NNSC_DRZM_ADA2_ASPP --model VNET16L -cvd 2 -sc 1 -ep 40 -dr 0.1 -t C1_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C1O_16_L_NNSC_DRZM -a C2_20 -b1 0.5 -al1w 1.0
+
+
+python main.py -n C2O_16_L_NN_DRZM_ADA1_ASPP --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C1_20 -b1 0.5 -al1w 1.0
+python main.py -n C2O_16_L_NN_DRZM_ADA3_ASPP --model VNET16L -cvd 4 -sc 0 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NN_DRZM -a C3_20 -b1 0.5 -al1w 1.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA1_ASPP --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C1_20 -b1 0.5 -al1w 1.0
+python main.py -n C2O_16_L_NNSC_DRZM_ADA3_ASPP --model VNET16L -cvd 4 -sc 1 -ep 40 -dr 0.1 -t C2_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C2O_16_L_NNSC_DRZM -a C3_20 -b1 0.5 -al1w 1.0
+
+
+python main.py -n C3O_16_L_NN_DRZM_ADA2_ASPP --model VNET16L -cvd 5 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C2_20 -b1 0.5 -al1w 1.0
+python main.py -n C3O_16_L_NN_DRZM_ADA1_ASPP --model VNET16L -cvd 5 -sc 0 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NN_DRZM -a C1_20 -b1 0.5 -al1w 1.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA2_ASPP --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C2_20 -b1 0.5 -al1w 1.0
+python main.py -n C3O_16_L_NNSC_DRZM_ADA1_ASPP --model VNET16L -cvd 5 -sc 1 -ep 40 -dr 0.1 -t C3_20 -as 0.1 -am 0.1 -zm --mode adapt -es 200 -sei --adapt C3O_16_L_NNSC_DRZM -a C1_20 -b1 0.5 -al1w 1.0
+
+
+
+
+
+
+Good LR:
+
+For SGD 0.001
+For MOM 0.99 start with 0.0001  >  0.00001  >  ...
+
+No skip-cons learns faster, produces kind of blurred result, but higher inter domain generalization!
+Now trying semi-skip
+
+Epoche: 182  OA now / best - LR: 1e-05
+1599: 0.14730665028939393
+Training..     94.11% / 94.11%
+Validating..   92.64% / 92.66%
+Testing..      83.96% / 84.04%
+
+################# ENCODER DECODER COMPARISON ##########################################
+
+python main.py -n V_GN_IRRG_ADAM --norm G --data _IR_R_G -t V8 -sts -cvd 5
+V Train 96.0 %
+V Test  85.0 %
+P Test  51.6 %
+
+python main.py -n V_GN_IRRGDSM_ADAM --norm G --data _IR_R_G_DSM -t V8 -sts
+V Train 96.4 %
+V Test  85.7 %
+P Test  62.5 %
+
+python main.py -n V_NN_IRRGNDSM_ADAM --data _IR_R_G_DSM -t V8 -sts
+V Train 93.5 %
+V Test  84.6 %
+P Test  50.4 %
+
+python main.py -n V_GN_IRRGNDSM_ADAM_ROT --norm G --data _IR_R_G_NDSM -t V8 -sts --aug_rot ROTATE -cvd 5
+V Train 94.3 %
+V Test  84.9 %
+P Test  62.1 %
+
+python main.py -n V_NN_IRRGNDSM_ADAM --data _IR_R_G_NDSM -t V8 -sts
+P Train 92.56 %
+P Test  85.78 %
+V Test  58.08 %
+
+python main.py -n V_GN_IRRGNDSM_ADAM --norm G --data _IR_R_G_NDSM -t V8 -sts -cvd 5
+V Train 96.4 %
+V Test  85.8 %
+P Test  63.8 %
+
+python main.py -n V_IN_IRRGNDSM_ADAM --norm I --data _IR_R_G_NDSM -t V8 -sts -cvd 5
+V Train 91.14 %
+V Test  85.34 %
+P Test  72.00 %
+
+python main.py -n V_IN_IRRGDSM_ADAM --norm I --data _IR_R_G_DSM -t V8 -sts -cvd 2
+V Train 96.73 %
+V Test  85.97 %
+P Test  71.82 %
+
+################# LATE FUSION ##########################################
+
+python main.py -n V_IN_IRRGDSM_LATE_DR01_ZM --norm I --data _IR_R_G_DSM -t V8 -ep 250 -cvd 5 -dr 0.1 -v --model VNETL -zm
+V Test 85.51%
+
+python main.py -n V_IN_IRRGDSM_LATE_DR01_NC --norm I --data _IR_R_G_DSM -t V8 -ep 250  -dr 0.1 -v --model VNETL
+V Test 85.67
+
+python main.py -n V_IN_IRRGDSM_LATE_DR01_ZM_FL --norm I --data _IR_R_G_DSM -t V8 -ep 250  -dr 0.1 -v --model VNETL -zm -fl
+V Train  94.69 %
+V Test   86.05 %
+V Test w/ dr 0.0 86.07 %
+V Test w/o dr 86.07 %
+V Test es 100 86.21 %
+P Test es 100 70.99 %
+
+python main.py -n V_IN_IRRGDSM_LATE_DR01_ZM_NO_SKIP --norm I --data _IR_R_G_DSM -t V8 -ep 250 -cvd 5 -dr 0.1 --model VNETL -zm -sc 0
+V Train 91.06 %
+V Test  84.76%
+P Test  73.67%
+
+################# VNET 18 > only one skipcon ########################
+
+python main.py -n V_M18 --model VNET18 --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 5
+BEST ~60 86.18%
+V Test 86.04%
+V Test es 100 86.24%
+P Test es 100 72.11%
+
+
+python main.py -n V_M18 --model VNET18 --norm I --data _IR_R_G_DSM -t V8
+BEST ~60 86.19%
+V Test 86.00%
+V Test es 100 86.24%
+P Test es 100 71.05
+
+python main.py -n V_M18 --model VNET18 --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 5 --aug_rot ROTATE
+V Test 85.19%
+V TEst 85.41% (es 100)
+P Test 71.61% (es 100)
+
+python main.py -n V_M18_DR --model VNET18 --norm I --data _IR_R_G_DSM -t V8 -fl -dr 0.1 -cvd 2
+V Test 85.84%
+V Test 86.05% (es 100)
+P Test 72.62% (es 100)
+
+python main.py -n V7_18 --model V7NET18 --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 4
+85.71% / 85.93%
+P 73.01%
+
+python main.py -n V7_18_FL_DR --model V7NET18 --norm I --data _IR_R_G_DSM -t V8 -fl -dr 0.1 --aug_rot ROTATE -cvd 5
+85.20% / 85.65%
+P 150 71.79%
+
+python main.py -n V7_18_FL_DR_ROT --model V7NET18 --norm I --data _IR_R_G_DSM -t V8 -fl -dr 0.1 --aug_rot ROTATE -cvd 2
+85.32% / 85.58%
+P 150 72.31%
+
+
+################# VNET 38 > only one skipcon ########################
+
+python main.py -n V_M38_FL --model VNET38 --norm I --data _IR_R_G_DSM -t V8 -fl  -cvd 4
+V Test 85.43%
+V Test 85.67%  (es 100)
+P Test 71.60% (es 100)
+
+################# VNET 18 L ##########################################
+
+python main.py -n V_18_L_SC --model VNET18L --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 5 -sc 1
+86.00% / 86.43%
+Test 86.20%
+P Test 75.13%
+V Eroded 89.07
+
+python main.py -n V_18_L_ZM --model VNET18L --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 4 -sc 0 -zm
+85.69% / 85.80%
+Test 85.95%
+P Test  74.56%
+
+python main.py -n V_18_L --model VNET18L --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 2 -sc 0
+85.99% / 86.30%
+Test 86.19%
+P Test 75.24%
+V Eroded 89.06
+P Test same data stats (exc. height mean) 74.39%
+P Test same height stddev: 75.24%
+
+python main.py -n V_18_L --model VNET18L --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 2 -sc 0 --mode eval -sei -es 100 -en P_same_normalization
+
+python main.py -n V_18_L_ROT --model VNET18L --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 2 -sc 0 --aug_rot ROTATE
+85.86% / 85.98%
+Test  86.19%
+P Test 74.95%
+
+###################### VNET 16 L ###################################
+
+python main.py -n V_16_L --model VNET16L --norm I -t V8 -fl -cvd 4 -sc 0 -b1 0.5
+85.84%
+V Test 86.08%
+P Test 74.15%
+# E adaptation
+python main.py -n V_16_L_ADA --model VNET16L --norm I -t V8 -fl -cvd 4 -sc 0 --mode adapt --adapt V_16_L -a P8 --aug_rot ROTATE -b1 0.5 -adw 0.01
+gets worse .... maybe latent space is bad ?!
+# TODO TRY DEEPER DISCRIMINATORS
+
+################### ADAPTATION #######################################
+
+ python main.py -n V_18_L_ADA --model VNET18L --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 4 -sc 0 --mode adapt --adapt V_18_L -a P8
+76.14% / 76.22%
+-> seems stable
+
+ python main.py -n V_18_L_ADA_SIA --model VNET18L --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 5 -sc 0 --mode adapt --adapt V_18_L -a P8 --aug_rot ROTATE
+- 4layer dis (ks 4, no stride, group norm (not in first), adam) adw 0.1
+78.22% / 78.22%
+
+python main.py -n V_18_L_ADA_SIA_D2 --model VNET18L --norm I --data _IR_R_G_DSM -t V8 -fl -cvd 4 -sc 0 --mode adapt --adapt V_18_L -a P8 --aug_rot ROTATE
+-2layer dis GN
+77.17% / 78.11%
+
+################################################################################################################################################################################################################################################
+################ THREE CITY ####################################################################################################################################################################################################################
+################################################################################################################################################################################################################################################
+
+python main.py -n C1_16_L --model VNET16L --norm I -t C1_20 -fl -cvd 5 -sc 0 -b1 0.5 # trained on 11-23 eval 31-33
+Training..     94.77% / 94.77%
+Validating..   93.07% / 93.33%
+Testing..      94.44% / 94.60%
+-> C2 74.36% (-20 %)
+-> C3 88.01% (-6.5 %)
+
+
+rerunning all experiments with _R2 ... stopped. to slow!
+
+
+python main.py -n C1O_16_L_R2 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C2O_16_L_R2 --model VNET16L --norm I -t C2_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C2O_16_L_R2 --model VNET16L --norm I -t C3_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C1O_16_L_SC_R2 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -sc 1 -ep 100
+python main.py -n C2O_16_L_SC_R2 --model VNET16L --norm I -t C2_20 -fl -cvd 5 -sc 1 -ep 100
+python main.py -n C2O_16_L_SC_R2 --model VNET16L --norm I -t C3_20 -fl -cvd 5 -sc 1 -ep 100
+
+python main.py -n C1O_16_L_NN_R2 --model VNET16L -t C1_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C2O_16_L_NN_R2 --model VNET16L -t C2_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C2O_16_L_NN_R2 --model VNET16L -t C3_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C1O_16_L_NNSC_R2 --model VNET16L -t C1_20 -fl -cvd 5 -sc 1 -ep 100
+python main.py -n C2O_16_L_NNSC_R2 --model VNET16L -t C2_20 -fl -cvd 5 -sc 1 -ep 100
+python main.py -n C2O_16_L_NNSC_R2 --model VNET16L -t C3_20 -fl -cvd 5 -sc 1 -ep 100
+
+python main.py -n C1O_16_L_GN_R2 --model VNET16L --norm G -t C1_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C2O_16_L_GN_R2 --model VNET16L --norm G -t C2_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C2O_16_L_GN_R2 --model VNET16L --norm G -t C3_20 -fl -cvd 5 -sc 0 -ep 100
+python main.py -n C1O_16_L_GNSC_R2 --model VNET16L --norm G -t C1_20 -fl -cvd 5 -sc 1 -ep 100
+python main.py -n C2O_16_L_GNSC_R2 --model VNET16L --norm G -t C2_20 -fl -cvd 5 -sc 1 -ep 100
+python main.py -n C2O_16_L_GNSC_R2 --model VNET16L --norm G -t C3_20 -fl -cvd 5 -sc 1 -ep 100
+
+
+python main.py -n C3O_16_L_NNSC_ADA2_P2P4G_al1w1_end --model VNET16L -t C3_20 -cvd 5 -sc 1 -ep 100 --mode adapt --adapt C3O_16_L_NNSC -a C2_20  -al1w 1.0 -ep 40 -es 200
+python main.py -n C3O_16_L_NNSC_ADA1_P2P4G_al1w1_end --model VNET16L -t C3_20 -cvd 5 -sc 1 -ep 100 --mode adapt --adapt C3O_16_L_NNSC -a C1_20  -al1w 1.0 -ep 40 -es 200
+python main.py -n C2O_16_L_NNSC_ADA3_P2P4G_al1w1_end --model VNET16L -t C2_20 -cvd 5 -sc 1 -ep 100 --mode adapt --adapt C2O_16_L_NNSC -a C3_20  -al1w 1.0 -ep 40 -es 200
+python main.py -n C2O_16_L_NNSC_ADA1_P2P4G_al1w1_end --model VNET16L -t C2_20 -cvd 5 -sc 1 -ep 100 --mode adapt --adapt C2O_16_L_NNSC -a C1_20  -al1w 1.0 -ep 40 -es 200
+python main.py -n C1O_16_L_NNSC_ADA3_P2P4G_al1w1_end --model VNET16L -t C1_20 -cvd 5 -sc 1 -ep 100 --mode adapt --adapt C1O_16_L_NNSC -a C3_20  -al1w 1.0 -ep 40 -es 200
+
+
+python main.py -n C3O_16_L_NN_ADA2_P2P4G_al1w1_end --model VNET16L -t C3_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C3O_16_L_NN -a C2_20  -al1w 1.0 -ep 40 -es 200
+python main.py -n C3O_16_L_NN_ADA1_P2P4G_al1w1_end --model VNET16L -t C3_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C3O_16_L_NN -a C1_20  -al1w 1.0 -ep 40 -es 200
+python main.py -n C2O_16_L_NN_ADA3_P2P4G_al1w1_end --model VNET16L -t C2_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C2O_16_L_NN -a C3_20  -al1w 1.0 -ep 40 -es 200
+python main.py -n C2O_16_L_NN_ADA1_P2P4G_al1w1_end --model VNET16L -t C2_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C2O_16_L_NN -a C1_20  -al1w 1.0 -ep 40 -es 200
+python main.py -n C1O_16_L_NN_ADA3_P2P4G_al1w1_end --model VNET16L -t C1_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L_NN -a C3_20  -al1w 1.0 -ep 40 -es 200
+
+
+------------------------------------------------------------------------------------------------------------------------ S1
+########################################################################################################################
+### BASE SEGMENTATION (evaluated with s. 200)
+#
+# python main.py -n C1O_16_L --model VNET16L --norm I -t C1_20 -fl -cvd 5 -sc 0 -ep 100 -b1 0.5
+# 91.95% / 81.87% / 87.16%
+# python main.py -n C2O_16_L --model VNET16L --norm I -t C2_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+# 84.30% / 91.09% / 79.11%
+# python main.py -n C3O_16_L --model VNET16L --norm I -t C3_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+# 89.26% / 83.62% / 91.26%
+#
+#
+### SIAMESE END ADAPTATION (evaluated with s. 320)
+#
+# FROM 1
+# python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -al1w 1.0
+# 85.19% / 85.19% @ 40  +3.2% (L1 distance in loss)
+# python main.py -n C1O_16_L_ADA2_P2P4_rot_al1w1_end --model VNET16L --norm I -t C1_20 -cvd 2 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -al1w 1.0
+# >> RUNNING RIGHT
+# python main.py -n C1O_16_L_ADA2_P2P4_al1w1_end --model VNET16L --norm I -t C1_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE  -al1w 1.0
+# >> RUNNING CENTER
+# python main.py -n C1O_16_L_ADA2_P2P4G_rot_al1w1_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE  -al1w 1.0
+# >> RUNNING LEFT
+# python main.py -n C1O_16_L_ADA2_P2P4_rot_adw05_end --model VNET16L --norm I -t C1_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -arf 0.1
+# >>  arf 0.1 > 82.40% / 83.95%
+# >>  arf 0.05 >  82.76% / 84.89% (OK BUT SEEMS UNSTABLE.. sometimes < 80)
+# >>  arf 0.01 > UNSTABLE
+# python main.py -n C1O_16_L_ADA2_P2P4_rot_adw05_logits --model VNET16L --norm I -t C1_20 -cvd 2 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 0.5 --adapt_logits -ep 25
+# >> 72.92% / 82.46%
+#
+# python main.py -n C1O_16_L_ADA3_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C3_20 --aug_rot ROTATE -adw 1.0
+# 88.46% / 88.46% +1.3%
+#
+# FROM 2
+# python main.py -n C2O_16_L_ADA1_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C2_20 -cvd 4 -sc 0 -ep 50 --mode adapt --adapt C2O_16_L -a C1_20 --aug_rot ROTATE -adw 1.0
+# 84.61% / 86.19% +0.2%
+# python main.py -n C2O_16_L_ADA3_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C2_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C2O_16_L -a C3_20 --aug_rot ROTATE -adw 1.0
+# adw 1: 68.94% / 75.39% -11% :( , instable
+# python main.py -n C2O_16_L_ADA3_P2P4_rot_al1w1_end --model VNET16L --norm I -t C2_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C2O_16_L -a C3_20 --aug_rot ROTATE -al1w 1.0
+# python main.py -n C2O_16_L_ADA3_ratio_P2P4_rot_adw10_end --model VNET16L --norm I -t C2_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C2O_16_L -a C3_20 --aug_rot ROTATE -adw 0.9 -es 200
+# -> weight-shifting adw 0.9 79.28 !!! :)
+#
+# python main.py -n C2O_16_L_ADA3_P2P4_rot_adw1_enc_end --model VNET16L --norm I -t C2_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C2O_16_L -a C3_20 --aug_rot ROTATE -adw 1.0 --adapt_encoder -v <<< ONLY ENCODER
+# 76.12% / 76.12% @12 75.37% / 76.12% @17
+#
+# FROM 3
+# python main.py -n C3O_16_L_ADA1_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C3_20 -cvd 4 -sc 0 -ep 50 --mode adapt --adapt C3O_16_L -a C1_20 --aug_rot ROTATE -adw 1.0
+# 89.91% / 89.92% +0.7
+# python main.py -n C3O_16_L_ADA2_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C3_20 -cvd 4 -sc 0 -ep 50 --mode adapt --adapt C3O_16_L -a C2_20 --aug_rot ROTATE -adw 1.0
+# 79.81% / 81.69% -2%
+#
+### LATENT ADAPTATION
+# python main.py -n C1O_16_L_ADA2_0_D4_rot_adw1_latent_normed --model VNET16L --norm I -t C1_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 1 --adapt_latent
+# adw < 1: instable
+# adw 3: 83.36, 83.49% , 82.63 stable?
+# adw 5: 82-83 %, stable
+# adw 10: 80 % stable
+#
+### RETRAIN END ADAPTATION
+#
+# FROM 1
+# python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw1_end_rt --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 50 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE --adapt_retrain
+# 71.73% / 80.28%  p(S)/p(T) 0.526/0.463 ce loss:0.117    < ce weight 10, instance norm p2p4b
+# 77.28% / 83.19%  p(S)/p(T) 0.604/0.383 ce loss:0.116    < ce weight 100 , instance norm p2p4b
+# 79.96% / 83.58% < ce weight 100, GN ... GROUP NORM DISCRIMINATOR ADAPTATION SEEMS BETTER ?!
+# 79.63% / 82.66% < with fl
+# different learning params and logit level are also not working well
+#
+### RETRAIN LATENT ADAPTATION
+# python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw1_latent_rt --model VNET16L --norm I -fl -b1 0.5 -t C1_20 -cvd 5 -sc 0 -ep 50 --mode adapt --adapt C1O_16_L -a C2_20 --adapt_retrain
+#
+### RETRAIN SELFTRAINING
+# python main.py -n C1O_16_L_ADA2_self_d_test5 --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --adapt_self -sts
+#
+########################################################################################################################
+------------------------------------------------------------------------------------------------------------------------ S2
+########################################################################################################################
+#
+### IN SC SEGMENTATION (evaluated with s. 200)
+#
+# python main.py -n C1O_16_L_SC --model VNET16L --norm I -t C1_20 -fl -cvd 4 -ep 100 -b1 0.5 -sc 1
+# 93.08% / 81.83% / 87.95%
+# python main.py -n C2O_16_L_SC --model VNET16L --norm I -t C2_20 -fl -cvd 4 -ep 100 -b1 0.5 -sc 1
+# 84.67% / 91.82% / 77.47%
+# python main.py -n C3O_16_L_SC --model VNET16L --norm I -t C3_20 -fl -cvd 2 -ep 100 -b1 0.5 -sc 1
+# 90.98%  / 86.47%  / 91.76%
+#
+#
+# python main.py -n C3O_16_L_SC --model VNET16L --norm I -t C1_20 -fl -cvd 2 -ep 100 -b1 0.5 -sc 1 --mode eval -es 200 -en C1 -sei
+#
+### SCIPCON ADAPTATION (evaluated with s. 320)
+#
+#
+# FROM 1
+# python main.py -n C1O_16_L_SC_ADA2_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 1 -ep 100 --mode adapt --adapt C1O_16_L_SC -a C2_20 --aug_rot ROTATE -adw 1.0
+# 78.29% / 86.40% @ 101  (stable until ep 20)
+# python main.py -n C1O_16_L_SC_ADA3_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 1 -ep 20 --mode adapt --adapt C1O_16_L_SC -a C3_20 --aug_rot ROTATE -adw 1.0
+# 89.08% / 89.08% @ 20
+#
+# FROM 2
+# python main.py -n C2O_16_L_SC_ADA1_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C2_20 -cvd 5  -sc 1 -ep 50 --mode adapt --adapt C2O_16_L_SC -a C1_20 --aug_rot ROTATE -adw 1.0
+# 84.83% / 85.18% @27
+# python main.py -n C2O_16_L_SC_ADA3_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C2_20 -cvd 5  -sc 1 -ep 50 --mode adapt --adapt C2O_16_L_SC -a C3_20 --aug_rot ROTATE -adw 1.0
+# 68.72% / 71.80% :(
+#
+# FROM 3
+# python main.py -n C3O_16_L_SC_ADA1_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C3_20 -cvd 5  -sc 1 -ep 100 --mode adapt --adapt C3O_16_L_SC -a C1_20 --aug_rot ROTATE -adw 1.0
+# 90.41% / 90.90% @51
+# python main.py -n C3O_16_L_SC_ADA2_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C3_20 -cvd 2 -sc 1 -ep 50 --mode adapt --adapt C3O_16_L_SC -a C2_20 --aug_rot ROTATE -adw 1.0
+# 76.13% / 82.49% @30
+#
+########################################################################################################################
+------------------------------------------------------------------------------------------------------------------------ S5
+########################################################################################################################
+#
+### NO NORM  (evaluated with s. 200)
+#
+# python main.py -n C1O_16_L_NN --model VNET16L -t C1_20 -fl -cvd 5 -sc 0 -ep 100 -b1 0.5
+# 91.28% / 76.94% / 87.10%
+# python main.py -n C2O_16_L_NN --model VNET16L -t C2_20 -fl -cvd 5 -sc 0 -ep 100 -b1 0.5
+# 79.32% / 91.09% / 80.03%
+# python main.py -n C3O_16_L_NN --model VNET16L -t C3_20 -fl -cvd 5 -sc 0 -ep 100 -b1 0.5
+# 88.81% / 78.52% / 91.55%
+#
+#
+########################################################################################################################
+------------------------------------------------------------------------------------------------------------------------ S3
+########################################################################################################################
+#
+### NO NORM, SC (evaluated with s. 200)
+#
+# python main.py -n C1O_16_L_NNSC --model VNET16L -t C1_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5
+# 93.19% / 78.41% / 86.36%
+# python main.py -n C2O_16_L_NNSC --model VNET16L -t C2_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5
+# 84.41% / 91.91% / 82.58%
+# python main.py -n C3O_16_L_NNSC --model VNET16L -t C3_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5
+# 89.55% / 79.23% / 91.96%
+#
+# FROM 1
+# python main.py -n C1O_16_L_NN_ADA2_0_P2P4_rot_adw1_end --model VNET16L -t C1_20 -cvd 5 -sc 1 -ep 50 --mode adapt --adapt C1O_16_L_NN -a C2_20 --aug_rot ROTATE -adw 1.0
+# 84.05% / 87.39%
+# python main.py -n C1O_16_L_NN_ADA3_0_P2P4_rot_adw1_end --model VNET16L -t C1_20 -cvd 5 -sc 1 -ep 50 --mode adapt --adapt C1O_16_L_NN -a C3_20 --aug_rot ROTATE -adw 1.0
+# 63.81% / 76.87%
+#
+########################################################################################################################
+------------------------------------------------------------------------------------------------------------------------ S3
+########################################################################################################################
+#
+### NO NORM, SC, WD(evaluated with s. 200)
+#
+# python main.py -n C1O_16_L_NNSC_WD --model VNET16L -t C1_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5 -lr 0.001 -wd 0.0001
+# ???
+# python main.py -n C2O_16_L_NNSC_WD --model VNET16L -t C2_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5 -lr 0.001 -wd 0.0001
+# ???
+# python main.py -n C3O_16_L_NNSC_WD --model VNET16L -t C3_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5 -lr 0.001 -wd 0.0001
+# ???
+#
+########################################################################################################################
+------------------------------------------------------------------------------------------------------------------------ S4
+########################################################################################################################
+#
+### GROUP NORM  (evaluated with s. 200)
+#
+# python main.py -n C1O_16_L_GN --model VNET16L --norm G -t C1_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+# 92.06% / 80.71% / 86.17%
+# python main.py -n C2O_16_L_GN --model VNET16L --norm G -t C2_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+# 80.21% / 91.19% / 78.60%
+# python main.py -n C3O_16_L_GN --model VNET16L --norm G -t C3_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+# 89.06% / 77.75% / 91.34%
+#
+########################################################################################################################
+------------------------------------------------------------------------------------------------------------------------ S6
+########################################################################################################################
+#
+### GROUP NORM , SC (evaluated with s. 200)
+#
+# python main.py -n C1O_16_L_GNSC --model VNET16L --norm G -t C1_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5
+# 93.20% / 80.18% / 87.00%
+# python main.py -n C2O_16_L_GNSC --model VNET16L --norm G -t C2_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5
+# 81.82% / 91.95% / 78.32%
+# python main.py -n C3O_16_L_GNSC --model VNET16L --norm G -t C3_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5
+# 89.62% / 78.11% / 92.00%
+
+python main.py -n C1O_16_L_GNSC_ADA2_0_latent_rt --model VNET16L --norm G -t C1_20 -cvd 5 -sc 1 -ep 50 -fl -b1 0.5 --mode adapt --adapt C1O_16_L_GNSC -a C2_20 --adapt_retrain
+#
+########################################################################################################################
+------------------------------------------------------------------------------------------------------------------------ S6
+########################################################################################################################
+#
+### NO NORM, SCIPCON DR ROT (evaluated with s. 200)
+#
+# python main.py -n C1O_16_L_SC_NN_DR_ROT --model VNET16L -t C1_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5 -dr 0.1 --aug_rot ROTATE
+# 93.02% / 74.00% / 86.68%
+# python main.py -n C2O_16_L_SC_NN_DR_ROT --model VNET16L -t C2_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5 -dr 0.1 --aug_rot ROTATE
+# 81.87% / 91.83% / 80.13%
+# python main.py -n C3O_16_L_SC_NN_DR_ROT --model VNET16L -t C3_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5 -dr 0.1 --aug_rot ROTATE
+# 89.90% / 80.75% / 91.73%
+#
+#
+########################################################################################################################
+
+
+python main.py -n C2O_16_L_GN --model VNET16L --norm G -fl -cvd 4 -sc 0 -ep 100 -b1 0.5 -t C1_20 --mode eval -es 200 -en C1
+python main.py -n C2O_16_L_GN --model VNET16L --norm G -t C2_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+python main.py -n C3O_16_L_GN --model VNET16L --norm G -t C3_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+
+
+
+python main.py -n C1O_SNETL_GN --model SNETL --norm G -t C3_20 -fl -cvd 5 -sc 1 -ep 100 -b1 0.5 --mode eval -sei -en C3 -es 75
+python main.py -n C1O_SNETL_GN_ADA2_rot_adw1_end --model SNETL --norm G -t C3_20 -fl -cvd 5 -sc 1 -ep 100 -b1 0.5 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 1.0
+
+### Segmentation models / modifications
+
+python main.py -n C1O_16_L_ROT --model VNET16L --norm I -t C1_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5 --aug_rot ROTATE
+91.75% / 81.23% / 86.16%
+python main.py -n C1O_16_L_ROT_DR --model VNET16L --norm I -t C1_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5 --aug_rot ROTATE -dr 0.1
+91.41% / 81.04% / 87.14%
+python main.py -n C1O_16_L_NN_NSC --model VNET16L -t C1_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+???
+python main.py -n C1O_16_L_GN --model VNET16L --norm G -t C1_20 -fl -cvd 4 -sc 1 -ep 100 -b1 0.5 [HAS SCIPCONS]
+92.78% /  77.72% / 86.25%
+python main.py -n C1O_16_L_GN_NSC --model VNET16L --norm G -t C1_20 -fl -cvd 4 -sc 0 -ep 100 -b1 0.5
+???
+python main.py -n C1O_16_L_DR1 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -sc 0 -dr 0.1 -ep 100 -b1 0.5
+91.61% /  82.42% / 87.49%
+python main.py -n C1O_16_L_DR2 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -sc 0 -dr 0.2 -ep 100 -b1 0.5
+91.23% / 82.73% / 86.66%
+python main.py -n C1O_16_L_DR3 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -sc 0 -dr 0.3 -ep 100 -b1 0.5
+90.70% / 82.32% /  86.54%
+python main.py -n C1O_16_L_ADAM9 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -ep 100 -sc 0 -b1 0.9
+91.86% /  82.28% /  87.46%
+python main.py -n C1O_16_L_ADAM99 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -ep 100 -sc 0 -b2 0.99
+ 91.85% / 81.53% / 86.97%
+python main.py -n C1O_16_L_ADAM0 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -ep 100 -sc 0 -b1 0.0
+ 91.66% / 80.18% / 87.31%
+python main.py -n C1O_16_L_ADAM099 --model VNET16L --norm I -t C1_20 -fl -cvd 5 -ep 100 -sc 0 -b1 0.0 -b2 0.99
+ 91.11% /  81.45% / 87.74%
+
+
+### adaptation approaches
+
+python main.py -n C1O_16_L_DR1_ADA2_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L_DR1 -a C2_20 --aug_rot ROTATE -adw 1.0 -dr 0.1
+80.81% / 83.85%
+
+
+python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw1_latent --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 1.0 --adapt_latent
+84.67% / 84.98% @ 53
+80.83% / 84.98% @ 54
+61.61% / 86.36% @ 98
+84.01% / 86.36% @ 101
+
+python main.py -n C1O_16_L_SC_ADA2_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C1_20 -cvd 2 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L_SC -a C2_20 --aug_rot ROTATE -adw 1.0
+???
+
+
+
+
+python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw1_end_all --model VNET16L --norm I -t C1_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 1.0
+84.12% / 85.07% >>>>>> including center patch decreased accuracy here....
+
+$ python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw05_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 0.5
+83.08% / 85.00%
+
+>>>>>>> p2p4 at END + adw 1.0 works!
+
+python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw01_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 0.1
+63.23% / 84.23%
+python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw05_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 0.5
+83.08% / 85.00%
+python main.py -n C1O_16_L_ADA3_0_P2P4_rot_adw1_end --model VNET16L --norm I -t C1_20 -cvd 4 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C3_20 --aug_rot ROTATE -adw 1.0
+88.36% / 88.54%
+
+python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw2_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 2.0
+85.68% / 85.72%
+python main.py -n C1O_16_L_ADA2_0_P2P4_rot_adw10_end --model VNET16L --norm I -t C1_20 -cvd 5 -sc 0 -ep 100 --mode adapt --adapt C1O_16_L -a C2_20 --aug_rot ROTATE -adw 10.0
+82.43% / 82.69%
+
+
+
+
+
+
+try to adapt model C1O_16_L_DR1
+try aspp  + adw 1.0 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+---
+D4 with group norm from second, 3 4x4 conv.. no end discriminator
+
+TODO
+- use target samples during adaptation --adapt_to_test
+- input normalization ?!
+- more augmentation: color shift, channel-wise intensity shift
+
+
+
+
+VAIHINGEN
+
+vaihingen reference experiment
+python main.py -n REF_VAIHINGEN_VNET_IN --norm I -t V8 -e V8
+92.62/85.88 @ 30x500
+python main.py -n REF_VAIHINGEN_VNET_IN_DR --norm I -dr 0.5 -t V8 -e V8
+
+python main.py -n REF_VAIHINGEN_VNET_NN -t V8 -e V8 -cvd 5
+91.60/86.17 @ 37x500
+python main.py -n REF_VAIHINGEN_VNET_NN_DR -dr 0.5 -t V8 -e V8 -cvd 2
+91.59/86.59 @ 21x500
+python main.py -n REF_VAIHINGEN_VNET_NN_DR -dr 0.8 -t V8 -e V8 -cvd 2
+93.03%/86.57 @ 38x500
+
+python main.py -n REF_VAIHINGEN_VNET_GN --norm G -t V8 -e V8 -bs 2
+91.55/86.09 @ 17x800
+python main.py -n REF_VAIHINGEN_VNET_GN_BN --norm G -dr 0.5 -t V8 -e V8 -bs 2
+92.94/86.58 @ 43x800
+python main.py -n REF_VAIHINGEN_VNET_GN_DRF --norm G -dr 0.5 -t V8 -e V8 -bs 2
+
+
+ADAPTATION
+python main.py -n RETRAIN --norm G -t V8 -a P8 --mode adapt --adapt REF_VAIHINGEN_VNET18_GN_DR_DSM_64_B2099 -cvd 2
