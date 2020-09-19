@@ -81,21 +81,15 @@ def Data_Augmentation_Execution(data, transformation_indexs):
             data_transformed[s, :, :, :] = np.flip(data_x_0, 1)        
     return data_transformed   
 
-def Patch_Extraction(data, corners_coordinates, domain_index, patch_size):
-
-    data_rows = np.size(data[0], 0)
-    data_cols = np.size(data[0], 1)
-    data_depth = np.size(data[0], 2)
+def Patch_Extraction(data, corners_coordinates, patch_size):
+                
+    data_depth = np.size(data, 2)
     num_samp = np.size(corners_coordinates , 0)
-    
     patches_cointainer = np.zeros((num_samp, patch_size, patch_size, data_depth)) 
         
-    data_padded = data
-    # ESto aqui tiene ser revisado para el nuevo contexto.
     for i in range(num_samp):
-        data_padded_ = data_padded[int(domain_index[i,0])]
-        patches_cointainer[i, :, :, :] = data_padded_[int(corners_coordinates[i , 0]) : int(corners_coordinates[i , 2]) , int(corners_coordinates[i , 1]) : int(corners_coordinates[i , 3]) , :]
-                
+        patches_cointainer[i, :, :, :] = data[int(corners_coordinates[i , 0]) : int(corners_coordinates[i , 2]) , int(corners_coordinates[i , 1]) : int(corners_coordinates[i , 3]) , :]
+
     return patches_cointainer
     
 def mask_creation(mask_row, mask_col, num_patch_row, num_patch_col, Train_tiles, Valid_tiles, Undesired_tiles):
@@ -103,7 +97,7 @@ def mask_creation(mask_row, mask_col, num_patch_row, num_patch_col, Train_tiles,
     teste_index = 2
     valid_index = 3
     undesired_index = 4
-    
+        
     patch_dim_row = mask_row//num_patch_row
     patch_dim_col = mask_col//num_patch_col
     
