@@ -4,6 +4,8 @@ import scipy.io as sio
 import skimage as sk
 #from osgeo import gdal
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score, confusion_matrix
+import sklearn
+import warnings
 
 
 def save_as_mat(data, name):
@@ -24,12 +26,26 @@ def Compute_NDVI_Band(Image):
     return ndvi
 
 def compute_metrics(true_labels, predicted_labels):
-    accuracy = 100*accuracy_score(true_labels, predicted_labels)
-    f1score = 100*f1_score(true_labels, predicted_labels)
-    recall = 100*recall_score(true_labels, predicted_labels)
-    prescision = 100*precision_score(true_labels, predicted_labels)
     conf_mat = confusion_matrix(true_labels, predicted_labels)
-    return accuracy, f1score, recall, prescision, conf_mat
+    accuracy = 100*accuracy_score(true_labels, predicted_labels)
+    with warnings.catch_warnings():
+        warnings.filterwarnings("error")
+        try:
+            precision = 100*precision_score(true_labels, predicted_labels)
+        except Warning as e:
+            if isinstance(e, sklearn.exceptions.UndefinedMetricWarning): precision = np.nan
+            else: raise e
+        try:
+            recall = 100*recall_score(true_labels, predicted_labels)
+        except Warning as e:
+            if isinstance(e, sklearn.exceptions.UndefinedMetricWarning): recall = np.nan
+            else: raise e
+        try:
+            f1score = 100*f1_score(true_labels, predicted_labels)
+        except Warning as e:
+            if isinstance(e, sklearn.exceptions.UndefinedMetricWarning): f1score = np.nan
+            else: raise e
+    return accuracy, f1score, recall, precision, conf_mat
 
 def Data_Augmentation_Definition(corners_coordinates):
     num_sample = np.size(corners_coordinates , 0)

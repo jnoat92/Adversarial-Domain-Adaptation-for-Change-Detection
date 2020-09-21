@@ -105,26 +105,18 @@ class Dataset():
             self.Valid_tiles = []
             self.Undesired_tiles = []
 
-    def Coordinates_Creator(self, args, i):
+    def Coordinates_Creator(self, args):
         self.images_norm_ = []
         self.references_ = []
         print('[*]Defining the corner patches coordinates...')
+        
+        self.mask = mask_creation(self.images_norm[0].shape[0], self.images_norm[0].shape[1], self.horizontal_blocks, self.vertical_blocks, self.Train_tiles, self.Valid_tiles, self.Undesired_tiles)
         if args.phase == 'train':
-            if args.fixed_tiles:
-                if i == 0:
-                    self.mask = mask_creation(self.images_norm[0].shape[0], self.images_norm[0].shape[1], self.horizontal_blocks, self.vertical_blocks, self.Train_tiles, self.Valid_tiles, self.Undesired_tiles)
-                
-                self.corners_coordinates_tr, self.corners_coordinates_vl, reference1_, reference2_, self.pad_tuple, self.class_weights = Corner_Coordinates_Definition_Training(self.mask, self.references[0], self.references[1], args.patches_dimension, self.overlap_percent, args.porcent_of_last_reference_in_actual_reference, args.porcent_of_positive_pixels_in_actual_reference)
-                sio.savemat(args.save_checkpoint_path + '/mask.mat', {'mask': self.mask})
-            else:
-                self.mask = mask_creation(self.images_norm[0].shape[0], self.images_norm[0].shape[1], self.horizontal_blocks, self.vertical_blocks, self.Train_tiles, self.Valid_tiles, self.Undesired_tiles)
-                sio.savemat(args.save_checkpoint_path + '/mask.mat', {'mask': self.mask})
-                self.corners_coordinates_tr, self.corners_coordinates_vl, reference1_, reference2_, self.pad_tuple, self.class_weights = Corner_Coordinates_Definition_Training(self.mask, self.references[0], self.references[1], args.patches_dimension, self.overlap_percent, args.porcent_of_last_reference_in_actual_reference, args.porcent_of_positive_pixels_in_actual_reference)
-            
+            self.corners_coordinates_tr, self.corners_coordinates_vl, reference1_, reference2_, self.pad_tuple, self.class_weights = Corner_Coordinates_Definition_Training(self.mask, self.references[0], self.references[1], args.patches_dimension, self.overlap_percent, args.porcent_of_last_reference_in_actual_reference, args.porcent_of_positive_pixels_in_actual_reference)
+            sio.savemat(args.save_checkpoint_path + '/mask.mat', {'mask': self.mask})            
             self.references_.append(reference1_)
             self.references_.append(reference2_)    
-        if args.phase == 'test':
-            self.mask = mask_creation(self.images_norm[0].shape[0], self.images_norm[0].shape[1], self.horizontal_blocks, self.vertical_blocks, self.Train_tiles, self.Valid_tiles, self.Undesired_tiles)
+        elif args.phase == 'test':
             self.corners_coordinates_ts, self.pad_tuple, self.k1, self.k2, self.step_row, self.step_col, self.stride, self.overlap = Corner_Coordinates_Definition_Testing(self.mask, args.patches_dimension, self.overlap_percent)
             
         # Performing the corresponding padding into the images

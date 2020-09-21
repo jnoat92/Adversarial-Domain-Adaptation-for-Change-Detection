@@ -2,60 +2,56 @@ import os
 
 Schedule = []                
 
-Schedule.append("python Main_Train_FC114.py --s_dataset CERRADO_MA --t_dataset CERRADO_MA "
-                "--mode classifier --phase train --runs 5 --patience 10 " 
-                "--epochs 150 --batch_size 32 --ada_batch_size 1 "
-                "--lr 0.0001 --optimizer Adam --num_classes 2 "
-                "--data_augmentation True --fixed_tiles True "
-                "--image_channels 7 --patches_dimension 128 --balanced_tr True "
-                "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
-                "--porcent_of_last_reference_in_actual_reference 100 --porcent_of_positive_pixels_in_actual_reference 2 "
-                "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
-                )
-
-Schedule.append("python Main_Train_FC114.py --s_dataset CERRADO_MA --t_dataset CERRADO_MA "
-                "--mode classifier --phase test --runs 5 --patience 10 " 
-                "--epochs 150 --batch_size 32 --ada_batch_size 1 "
-                "--lr 0.0001 --optimizer Adam --num_classes 2 "
-                "--data_augmentation True --fixed_tiles True "
-                "--image_channels 7 --patches_dimension 128 --balanced_tr True "
-                "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
-                "--porcent_of_last_reference_in_actual_reference 100 --porcent_of_positive_pixels_in_actual_reference 2 "
-                "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
-                )
-
-Schedule.append("python Main_Train_FC114.py --s_dataset CERRADO_MA --t_dataset AMAZON_RO "
-                "--mode classifier --phase test --runs 5 --patience 10 " 
-                "--epochs 150 --batch_size 32 --ada_batch_size 1 "
-                "--lr 0.0001 --optimizer Adam --num_classes 2 "
-                "--data_augmentation True --fixed_tiles True "
-                "--image_channels 7 --patches_dimension 128 --balanced_tr True "
-                "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
-                "--porcent_of_last_reference_in_actual_reference 100 --porcent_of_positive_pixels_in_actual_reference 2 "
-                "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
-                )
-
-Schedule.append("python Main_Train_FC114.py --s_dataset CERRADO_MA --t_dataset AMAZON_PA "
-                "--mode classifier --phase test --runs 5 --patience 10 " 
-                "--epochs 150 --batch_size 32 --ada_batch_size 1 "
-                "--lr 0.0001 --optimizer Adam --num_classes 2 "
-                "--data_augmentation True --fixed_tiles True "
-                "--image_channels 7 --patches_dimension 128 --balanced_tr True "
-                "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
-                "--porcent_of_last_reference_in_actual_reference 100 --porcent_of_positive_pixels_in_actual_reference 2 "
-                "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
-                )
-
-
-# Schedule.append("python Main_Compute_Average_Metrics_MT.py --s_dataset CERRADO_MA --t_dataset AMAZON_PA "
-#                 "--eliminate_regions True --area_avoided 69 --Npoints 100 --save_result_text False "
-#                 "--mode adaptation --phase train --runs 5 --patience 10 " 
-#                 "--epochs 100 --batch_size 32 --ada_batch_size 1 "
+# Schedule.append("python Main_Train_Test.py --s_dataset AMAZON_PA --t_dataset AMAZON_PA "
+#                 "--mode classifier --phase train --runs 5 --patience 10 " 
+#                 "--epochs 150 --batch_size 32 --ada_batch_size 1 "
 #                 "--lr 0.0001 --optimizer Adam --num_classes 2 "
 #                 "--data_augmentation True --fixed_tiles True "
 #                 "--image_channels 7 --patches_dimension 128 --balanced_tr True "
 #                 "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
 #                 "--porcent_of_last_reference_in_actual_reference 100 --porcent_of_positive_pixels_in_actual_reference 2 "
+#                 "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
+#                 )
+
+Schedule.append("python Main_Train_Test.py --s_dataset AMAZON_PA --t_dataset AMAZON_PA "
+                "--mode classifier --phase test --runs 5 --patience 10 " 
+                "--epochs 150 --batch_size 32 --ada_batch_size 1 "
+                "--lr 0.0001 --optimizer Adam --num_classes 2 "
+                "--data_augmentation True --fixed_tiles True "
+                "--image_channels 7 --patches_dimension 128 --balanced_tr True "
+                "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
+                "--porcent_of_last_reference_in_actual_reference 100 --porcent_of_positive_pixels_in_actual_reference 2 "
+                "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
+                )
+
+Schedule.append("python Main_Train_Test.py --s_dataset AMAZON_PA --t_dataset CERRADO_MA "
+                "--mode classifier --phase test --runs 5 --patience 10 " 
+                "--epochs 150 --batch_size 32 --ada_batch_size 1 "
+                "--lr 0.0001 --optimizer Adam --num_classes 2 "
+                "--data_augmentation True --fixed_tiles True "
+                "--image_channels 7 --patches_dimension 128 --balanced_tr True "
+                "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
+                "--porcent_of_last_reference_in_actual_reference 100 --porcent_of_positive_pixels_in_actual_reference 2 "
+                "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
+                )
+
+Schedule.append("python Main_Train_Test.py --s_dataset AMAZON_PA --t_dataset AMAZON_RO "
+                "--mode classifier --phase test --runs 5 --patience 10 " 
+                "--epochs 150 --batch_size 32 --ada_batch_size 1 "
+                "--lr 0.0001 --optimizer Adam --num_classes 2 "
+                "--data_augmentation True --fixed_tiles True "
+                "--image_channels 7 --patches_dimension 128 --balanced_tr True "
+                "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
+                "--porcent_of_last_reference_in_actual_reference 100 --porcent_of_positive_pixels_in_actual_reference 2 "
+                "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
+                # )
+
+
+# Schedule.append("python Main_Compute_Metrics_MT.py --s_dataset AMAZON_RO --t_dataset AMAZON_RO "
+#                 "--mode classifier --phase train --runs 5 --patience 10 " 
+#                 "--eliminate_regions True --area_avoided 69 --Npoints 100 --save_result_text True "
+#                 "--buffer True --buffer_dimension_out 2 --buffer_dimension_in 0 "
+#                 "--image_channels 7 --patches_dimension 128 --balanced_tr True --fixed_tiles True "
 #                 "--data_type .npy --dataset_main_path D:/PEDROSOTO_THESIS/Datasets/"
 #                 )
 

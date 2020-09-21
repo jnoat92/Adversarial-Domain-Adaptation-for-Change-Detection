@@ -11,8 +11,8 @@ from skimage.morphology import square, disk
 from sklearn.preprocessing import StandardScaler
 #from tensordash.tensordash import Tensordash, Customdash
 
-from Tools import*
-from Models_FC114 import*
+from Tools import *
+from Models import *
 import Datasets
 
 parser = argparse.ArgumentParser(description='')
@@ -75,102 +75,88 @@ parser.add_argument("--match", type=str, choices=['early', 'middle', 'end'], def
 parser.add_argument("--L_lambda", type=float, default=2.0, help="lambda value for regularization")
 parser.add_argument("--mode", type=str, choices=['classifier', 'adaptation'], default='adaptation')
 
-parser.add_argument('--eliminate_regions', dest='eliminate_regions', type=eval, choices=[True, False], default=True, help='Decide if small regions will be taken into account')
-parser.add_argument('--area_avoided', dest='area_avoided', type=int, default=69, help='area threshold that will be avoided')
-parser.add_argument('--Npoints', dest='Npoints', type=float, default=50, help='Number of thresholds used to compute the curves')
-parser.add_argument('--save_result_text', dest='save_result_text', type=eval, choices=[True, False], default = True, help='decide if a text file results is saved')
-
 args = parser.parse_args()
 
-def Main():
+def main():
 
     if args.s_dataset == args.t_dataset and args.mode != 'classifier':
         args.mode = 'classifier' # unnecessary adaptation
         print('Same source and target datasets:\n --> mode forced to classifier!!')
 
+    args.checkpoint_dir = "../checkpoints/Source_%s/" %(args.s_dataset)
     args.results_dir = "../results/Source_%s/" %(args.s_dataset)
     print(args)
 
-    # Loading Target dataset
+    # Loading Datasets
+    dataset_loader = getattr(Datasets, args.s_dataset)
+    s_dataset = dataset_loader(args)
     dataset_loader = getattr(Datasets, args.t_dataset)
     t_dataset = dataset_loader(args)
 
-    counter = 0
-    files = os.listdir(args.results_dir)
-    initial_flag = True
-    aux = args.mode if args.mode == 'adaptation' else ''
+    if args.phase == 'train':
+        for i in range(args.runs):
 
-    for i in range(len(files)):
-        Hit_map_path = args.results_dir + '/' + files[i] + '/' + aux + '/' + \
-                                '___Target_%s'%(args.t_dataset) + '/hit_map.npy'
-        if os.path.exists(Hit_map_path):
-            hit_map = np.load(Hit_map_path)
-            counter += 1
-            if initial_flag:
-                HIT_MAP = np.zeros_like(hit_map)
-                initial_flag = False
-            HIT_MAP += hit_map
-    
-    Avg_hit_map = HIT_MAP/counter
-    t_dataset.Tiles_Configuration(args, 0)
+            now = datetime.now()
+            dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
+            print(dt_string)
+            print('Train phase --- Run number %s:' %(i))
+            run_sufix = "Run_%s" %(str(i) if i > 9 else '0'+str(i))
 
-    args.results_metrics_dir = "../Avg_Scores/Source_%s/" %(args.s_dataset) + '/' + aux + '/' + \
-                                '___Target_%s'%(args.t_dataset) + '/'
-    if not os.path.exists(args.results_metrics_dir):
-        os.makedirs(args.results_metrics_dir)
-    
-    if args.save_result_text:
-        # Open a file in order to save the training history
-        f = open(args.results_metrics_dir + "Results.txt","a")
-        if counter == 0:
-            ACCURACY_ = []  
-            FSCORE_ = []
-            RECALL_ = []
-            PRECISION_ = [] 
-            ALERT_AREA_ = []  
+            # Checkpoint directory
+            args.save_checkpoint_path = os.path.join(args.checkpoint_dir, run_sufix, args.mode)
+            if args.mode == 'adaptation':
+                args.save_checkpoint_path = os.path.join(args.save_checkpoint_path, args.match, '___Target_%s'%(args.t_dataset))
+            if not os.path.exists(args.save_checkpoint_path): os.makedirs(args.save_checkpoint_path)
+            # Writing the args into a file
+            with open(args.save_checkpoint_path + '/' + 'commandline_args.txt', 'w') as f:
+                json.dump(args.__dict__, f, indent=2)
             
-    ACCURACY, FSCORE, RECALL, PRECISION, \
-        CONFUSION_MATRIX, ALERT_AREA = Metrics_For_Test_M(Avg_hit_map,
-                                                        t_dataset.references[0], t_dataset.references[1],
-                                                        t_dataset.Train_tiles, t_dataset.Valid_tiles, t_dataset.Undesired_tiles,
-                                                        args)
-                
-    if args.save_result_text:
-        
-        ACCURACY_.append(ACCURACY[0,0])
-        FSCORE_.append(FSCORE[0,0])
-        RECALL_.append(RECALL[0,0])
-        PRECISION_.append(PRECISION[0,0])
-        ALERT_AREA_.append(ALERT_AREA[0,0])
-        #histories.sendLoss(loss = FSCORE[0 , 0], epoch = i, total_epochs = len(files))
-        f.write("Run: %d Accuracy: %.2f%% F1-Score: %.2f%% Recall: %.2f%% Precision: %.2f%% Area: %.2f%% File Name: %s\n" % (counter, ACCURACY, FSCORE, RECALL, PRECISION, ALERT_AREA, args.file))
-        f.close()
-        print(ACCURACY_)
+            # Pre-processing Datasets
+            s_dataset.Tiles_Configuration(args, i)
+            s_dataset.Coordinates_Creator(args)
+            t_dataset.Tiles_Configuration(args, i)
+            t_dataset.Coordinates_Creator(args)
+
+            print('[*] Initializing the model...')
+            model = Models(args, s_dataset=s_dataset, t_dataset=t_dataset)
+            if args.mode == 'classifier': model.Train_classifier()
+            else: model.Train_adaptation()
+
     else:
-        print('Coming up!')
-        #histories.sendLoss(loss = 0.0, epoch = i, total_epochs = len(files))
-    
-    if args.save_result_text:
-        f = open(args.results_metrics_dir + "Results.txt","a")
-        ACCURACY_m = np.mean(ACCURACY_)
-        FSCORE_m = np.mean(FSCORE_)
-        RECALL_m = np.mean(RECALL_)
-        PRECISION_m = np.mean(PRECISION_)
-        ALERT_AREA_m = np.mean(ALERT_AREA_)
-        
-        
-        ACCURACY_s = np.std(ACCURACY_)
-        FSCORE_s = np.std(FSCORE_)
-        RECALL_s = np.std(RECALL_)
-        PRECISION_s = np.std(PRECISION_) 
-        ALERT_AREA_s = np.std(ALERT_AREA_)
-        
-        #histories.sendLoss(loss = FSCORE_m, epoch = i + 1, total_epochs = len(files) + 1)
-        f.write("Mean: %d Accuracy: %f%% F1-Score: %f%% Recall: %f%% Precision: %f%% Area: %f%%\n" % ( 0, ACCURACY_m, FSCORE_m, RECALL_m, PRECISION_m, ALERT_AREA_m))
-        f.write("Std: %d Accuracy: %.2f%% F1-Score: %.2f%% Recall: %.2f%% Precision: %.2f%% Area: %.2f%%\n" % ( 0, ACCURACY_s, FSCORE_s, RECALL_s, PRECISION_s, ALERT_AREA_s))
-        f.close()
-    
+        checkpoint_files = os.listdir(args.checkpoint_dir)
+        for i in range(len(checkpoint_files)):
+
+            run_sufix = checkpoint_files[i]
+            print(run_sufix)
+
+            # Directories
+            args.save_checkpoint_path = os.path.join(args.checkpoint_dir, run_sufix, args.mode)
+            args.save_results_path = os.path.join(args.results_dir, run_sufix)
+
+            if args.mode == 'adaptation':
+                args.save_checkpoint_path = os.path.join(args.save_checkpoint_path, args.match, '___Target_%s'%(args.t_dataset))
+                args.save_results_path = os.path.join(args.save_results_path, args.match, args.mode)
+            args.save_results_path = os.path.join(args.save_results_path, '___Target_%s'%(args.t_dataset))
+
+            if not os.path.exists(args.save_checkpoint_path):
+                print('[!] Checkpoint path does not exist')
+                continue
+            if not os.path.exists(args.save_results_path):
+                os.makedirs(args.save_results_path)
+
+            # Writing the args into a file
+            with open(args.save_results_path + '/' + 'commandline_args.txt', 'w') as f:
+                json.dump(args.__dict__, f, indent=2)
+            
+            # Pre-processing Datasets
+            s_dataset.Tiles_Configuration(args, i)
+            s_dataset.Coordinates_Creator(args)
+            t_dataset.Tiles_Configuration(args, i)
+            t_dataset.Coordinates_Creator(args)
+
+            print('[*] Initializing the model...')
+            model = Models(args, s_dataset=s_dataset, t_dataset=t_dataset)        
+            model.Test()
+
 if __name__=='__main__':
-    Main()
-    
-    
+    main()
