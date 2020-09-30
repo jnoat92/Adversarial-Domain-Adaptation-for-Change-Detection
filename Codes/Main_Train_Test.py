@@ -135,7 +135,7 @@ def main():
 
             if args.mode == 'adaptation':
                 args.save_checkpoint_path = os.path.join(args.save_checkpoint_path, args.match, '___Target_%s'%(args.t_dataset))
-                args.save_results_path = os.path.join(args.save_results_path, args.match, args.mode)
+                args.save_results_path = os.path.join(args.save_results_path, args.mode, args.match)
             args.save_results_path = os.path.join(args.save_results_path, '___Target_%s'%(args.t_dataset))
 
             if not os.path.exists(args.save_checkpoint_path):

@@ -103,7 +103,8 @@ class Models():
                 self.g_loss = tf.reduce_mean(-tf.log(t_p + EPS))
 
                 self.regularization, self.assigners = self.Regularizer(self.ada_vars, self.cls_vars)
-                self.g_loss = self.g_loss + self.regularization * self.args.L_lambda
+                self.reg = self.regularization * self.args.L_lambda
+                self.g_loss = self.g_loss + self.reg
 
                 # Defining the Optimizers
                 if self.args.optimizer == "Adam":
@@ -381,7 +382,7 @@ class Models():
 
         # ================ LOAD SEGMENTATION MODEL PRE-TRAINED ON SOURCE DOMAIN ===================
         print('[*] Loading pretrained segmentation model...')
-        cls_path = os.path.dirname(os.path.dirname(self.args.save_checkpoint_path)) + '/classifier/'
+        cls_path = os.path.dirname(os.path.dirname(os.path.dirname(self.args.save_checkpoint_path))) + '/classifier/'
         cls_saver = tf.train.Saver(var_list=self.cls_vars)
         e = self.load(cls_path, cls_saver)
         if e == -1:
@@ -399,7 +400,20 @@ class Models():
         t_data, _, t_num_batches_vl, t_corners_coordinates_tr, \
             t_corners_coordinates_vl, t_class_weights = self.Dataset_info(self.t_dataset)
         num_tr_samples = min(s_corners_coordinates_tr.shape[0], t_corners_coordinates_tr.shape[0])
-        batchs = trange(int(np.ceil(num_tr_samples / self.args.ada_batch_size)))
+
+        # ======================================== VALIDATION =====================================
+        print('[*]Computing the validation loss...')
+        placeholders = [self.t_image, self.t_labels, self.t_mask_c, self.s_class_weights, self.learning_rate]
+        tensors = [self.t_loss, self.t_prediction]
+        # These tensors do not depend on the placeholder "self.s_class_weights"
+        # we introduced it to take advantage of the function "self.Routine_batches"
+        loss_vl, accuracy_vl, f1_score_vl, \
+            recall_vl, precission_vl = self.Routine_batches(t_data, t_num_batches_vl, t_corners_coordinates_vl, t_class_weights, self.args.lr, tensors, placeholders)
+        print_line = "%d [Vl loss: %f, acc.: %.2f%%, precission: %.2f%%, recall: %.2f%%, fscore: %.2f%%]\n" % (e, loss_vl, accuracy_vl, precission_vl, recall_vl, f1_score_vl)
+        print (print_line)
+        f = open(self.args.save_checkpoint_path + "/Log.txt", "a")
+        f.write(print_line)
+        f.close()
 
         # Training loop
         start_time =  time.time()
@@ -422,6 +436,7 @@ class Models():
             f = open(self.args.save_checkpoint_path + "/Log.txt", "a")
 
             # ======================================== TRAINING =======================================
+            batchs = trange(int(np.ceil(num_tr_samples / self.args.ada_batch_size)))
             for b in batchs:
                 # Take batch
                 if (b + 1) * self.args.ada_batch_size > num_tr_samples:
@@ -455,14 +470,15 @@ class Models():
                 _ = self.sess.run(self.g_optimizer, 
                                   feed_dict={self.t_image: t_data_batch, self.learning_rate: lr})
                 
-                if (b + 1) % 1000 == 0:
+                if (b + 1) % 2000 == 0:
                     d_loss_ = self.sess.run(self.d_loss, 
                                             feed_dict={self.s_image: s_data_batch, self.t_image: t_data_batch, self.learning_rate: lr})
-                    g_loss_ = self.sess.run(self.g_loss, 
+                    g_loss_, reg_ = self.sess.run([self.g_loss, self.reg], 
                                             feed_dict={self.t_image: t_data_batch, self.learning_rate: lr})
+                    
 
-                    print_line = "Epoch: [%2d] [%4d/%4d] lr: %.6f time: %4.4f, d_loss: %.8f, g_loss: %.8f\n" \
-                                    % (e, b, num_tr_samples, lr, time.time() - start_time, d_loss_, g_loss_)
+                    print_line = "Epoch: [%2d] [%4d/%4d] lr: %.6f time: %4.4f, d_loss: %.8f, g_loss: %.8f, L1: %.8f\n" \
+                                    % (e, b, num_tr_samples, lr, time.time() - start_time, d_loss_, g_loss_ - reg_, reg_)
                     print(print_line)
                     f.write(print_line)
 
@@ -537,73 +553,80 @@ class Models():
         np.save(self.args.save_results_path + '/hit_map', hit_map)
 
 
-def Metrics_For_Test_M(hit_map, dataset, Thresholds, mask_final, args, f):
+def metrics_multithreshold(hit_map, Thresholds, mask_final, args, file_path, reference_t1, reference_t2, th):
+
+    positive_map_init = np.zeros_like(hit_map)
+    reference_t1_copy = reference_t1.copy()
+    
+    threshold = Thresholds[th]
+    positive_coordinates = np.transpose(np.array(np.where(hit_map >= threshold)))
+    positive_map_init[positive_coordinates[:,0].astype('int'), positive_coordinates[:,1].astype('int')] = 1
+    
+    if args.eliminate_regions:
+        positive_map_init_ = skimage.morphology.area_opening(positive_map_init.astype('int'), area_threshold = args.area_avoided, connectivity=1)
+        eliminated_samples = positive_map_init - positive_map_init_
+    else:
+        eliminated_samples = np.zeros_like(hit_map)
+        
+    reference_t1_copy = reference_t1_copy + eliminated_samples
+    reference_t1_copy[reference_t1_copy == 2] = 1
+    reference_t1_copy = reference_t1_copy - 1
+    reference_t1_copy[reference_t1_copy == -1] = 1
+    reference_t1_copy[reference_t2 == 2] = 0
+    mask_f = mask_final * reference_t1_copy
+    
+    central_pixels_coordinates_ts_ = np.transpose(np.array(np.where(mask_f == 1)))
+    y_test = reference_t2[central_pixels_coordinates_ts_[:,0].astype('int'), central_pixels_coordinates_ts_[:,1].astype('int')]
+    
+    Probs = hit_map[central_pixels_coordinates_ts_[:,0].astype('int'), central_pixels_coordinates_ts_[:,1].astype('int')]    
+    Probs[Probs >= Thresholds[th]] = 1
+    Probs[Probs <  Thresholds[th]] = 0
+    
+    accuracy, f1score, recall, precision, conf_mat = compute_metrics(y_test.astype('int'), Probs.astype('int'))
+    # Classification_map, _, _ = Classification_Maps(Probs, y_test, central_pixels_coordinates_ts_, hit_map)
+    
+    TP = conf_mat[1 , 1]
+    FP = conf_mat[0 , 1]
+    TN = conf_mat[0 , 0]
+    FN = conf_mat[1 , 0]
+    
+    numerator = TP + FP
+    denominator = TN + FN + FP + TP    
+    Alert_area = 100*(numerator/denominator)
+
+    print_line = "[Threshold: %f, acc.: %.2f%%, precision: %.2f%%, recall: %.2f%%, fscore: %.2f%%]\n" % (Thresholds[th], accuracy, precision, recall, f1score)
+    print(file_path)
+    print(print_line)
+    f = open(file_path, 'a')
+    f.write(print_line)
+    f.close()
+
+    return accuracy, f1score, recall, precision, conf_mat, Alert_area
+
+def Metrics_For_Test_M(hit_map, dataset, Thresholds, mask_final, args, file_path):
 
     reference_t1 = dataset.references[0]
     reference_t2 = dataset.references[1]
-    
-    ACCURACY = np.zeros((1, len(Thresholds))) 
-    FSCORE = np.zeros((1, len(Thresholds))) 
-    RECALL = np.zeros((1, len(Thresholds))) 
-    PRECISION = np.zeros((1, len(Thresholds))) 
-    CONFUSION_MATRIX = np.zeros((2 , 2, len(Thresholds)))
-    #CLASSIFICATION_MAPS = np.zeros((len(Thresholds), hit_map.shape[0], hit_map.shape[1], 3))
-    ALERT_AREA = np.zeros((1 , len(Thresholds)))
-    
+        
     print('[*]The metrics computation has started...')
     #Computing the metrics for each defined threshold    
-    for th in range(len(Thresholds)):
-        
-        positive_map_init = np.zeros_like(hit_map)
-        reference_t1_copy = reference_t1.copy()
-        
-        threshold = Thresholds[th]
-        positive_coordinates = np.transpose(np.array(np.where(hit_map >= threshold)))
-        positive_map_init[positive_coordinates[:,0].astype('int'), positive_coordinates[:,1].astype('int')] = 1
-        
-        if args.eliminate_regions:
-            positive_map_init_ = skimage.morphology.area_opening(positive_map_init.astype('int'), area_threshold = args.area_avoided, connectivity=1)
-            eliminated_samples = positive_map_init - positive_map_init_
-        else:
-            eliminated_samples = np.zeros_like(hit_map)
-            
-        reference_t1_copy = reference_t1_copy + eliminated_samples
-        reference_t1_copy[reference_t1_copy == 2] = 1
-        reference_t1_copy = reference_t1_copy - 1
-        reference_t1_copy[reference_t1_copy == -1] = 1
-        reference_t1_copy[reference_t2 == 2] = 0
-        mask_f = mask_final * reference_t1_copy
-        
-        central_pixels_coordinates_ts_ = np.transpose(np.array(np.where(mask_f == 1)))
-        y_test = reference_t2[central_pixels_coordinates_ts_[:,0].astype('int'), central_pixels_coordinates_ts_[:,1].astype('int')]
-        
-        Probs = hit_map[central_pixels_coordinates_ts_[:,0].astype('int'), central_pixels_coordinates_ts_[:,1].astype('int')]        
-        Probs[Probs >= Thresholds[th]] = 1
-        Probs[Probs <  Thresholds[th]] = 0
-        
-        accuracy, f1score, recall, precision, conf_mat = compute_metrics(y_test.astype('int'), Probs.astype('int'))
-        # Classification_map, _, _ = Classification_Maps(Probs, y_test, central_pixels_coordinates_ts_, hit_map)
-        
-        TP = conf_mat[1 , 1]
-        FP = conf_mat[0 , 1]
-        TN = conf_mat[0 , 0]
-        FN = conf_mat[1 , 0]
-        
-        numerator = TP + FP
-        denominator = TN + FN + FP + TP        
-        Alert_area = 100*(numerator/denominator)
 
-        print_line = "[Threshold: %f, acc.: %.2f%%, precision: %.2f%%, recall: %.2f%%, fscore: %.2f%%]\n" % (Thresholds[th], accuracy, precision, recall, f1score)
-        print(print_line)
-        f.write(print_line)
-        
-        ACCURACY[0 , th] = accuracy
-        FSCORE[0 , th] = f1score
-        RECALL[0 , th] = recall 
-        PRECISION[0 , th] = precision
-        CONFUSION_MATRIX[: , : , th] = conf_mat
-        #CLASSIFICATION_MAPS[th, :, :, :] = Classification_map
-        ALERT_AREA[0 , th] = Alert_area
+    import multiprocessing
+    from functools import partial
+    n_cores = multiprocessing.cpu_count()
+    p = multiprocessing.Pool(n_cores)
+    func = partial(metrics_multithreshold, hit_map, Thresholds, mask_final, args, file_path, reference_t1, reference_t2)
+    metrics_list = p.map(func, range(len(Thresholds)))
+    p.close()
+    p.join() 
+
+    metrics_list = np.asarray(metrics_list).transpose()
+    ACCURACY         = metrics_list[0, :]
+    FSCORE           = metrics_list[1, :]
+    RECALL           = metrics_list[2, :]
+    PRECISION        = metrics_list[3, :]
+    CONFUSION_MATRIX = metrics_list[4, :]
+    ALERT_AREA       = metrics_list[5, :]
     
     return ACCURACY, FSCORE, RECALL, PRECISION, CONFUSION_MATRIX, ALERT_AREA
 
