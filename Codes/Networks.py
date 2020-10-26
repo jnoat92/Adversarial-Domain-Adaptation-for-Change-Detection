@@ -80,12 +80,12 @@ class Networks():
                 X = encoder_conf('eI', I[:, :, :, :-1], 96, 5, 1, norm, reuse_encoder, is_train, self.args.dropout) # 128 > 124
                 X0 = encoder_conf('d0', X, 96, 2, 2, norm, reuse_encoder, is_train, self.args.dropout)              # 124 > 62  @2
                 X = encoder_conf('e1', X0, 128, 3, 1, norm, reuse_encoder, is_train, self.args.dropout)             # 62  > 60
-                X_EARLIER = X
+                X_EARLY = X
                 X1 = encoder_conf('d1', X, 128, 2, 2, norm, reuse_encoder, is_train, self.args.dropout)             # 60  > 30  @4
                 X = encoder_conf('e2', X1, 256, 3, 1, norm, reuse_encoder, is_train, self.args.dropout)             # 30  > 28
                 X2 = encoder_conf('d2', X, 256, 2, 2, norm, reuse_encoder, is_train, self.args.dropout)             # 28  > 14  @8
                 X = encoder_conf('e3', X2, 512, 3, 1, norm, reuse_encoder, is_train, self.args.dropout)             # 14  > 12
-                X_EARLY = X
+                X_MIDDLE = X
 
         # ===============================================================================DECODER
         with tf.variable_scope(decoderscope) as scope:
@@ -95,17 +95,17 @@ class Networks():
 
             with tf.variable_scope('decoder'):
                 X = decoder_conf('d3', X, 512, F, 1, norm, reuse_decoder, is_train, self.args.dropout)              # 12  > 14
-                X_MIDDLE = X
                 if self.args.skip_connections: X = tf.concat((X, X2), axis=-1)
                 X = decoder_conf('u4', X, 256, F, 2, norm, reuse_decoder, is_train, self.args.dropout)              # 14  > 28
                 X = decoder_conf('d4', X, 256, F, 1, norm, reuse_decoder, is_train, self.args.dropout)              # 28  > 30
                 if self.args.skip_connections: X = tf.concat((X, X1), axis=-1)
                 X = decoder_conf('u5', X, 128, F, 2, norm, reuse_decoder, is_train, self.args.dropout)              # 30  > 60
+                X_LATE = X
                 X = decoder_conf('d5', X, 128, F, 1, norm, reuse_decoder, is_train, self.args.dropout)              # 60  > 62
                 if self.args.skip_connections: X = tf.concat((X, X0), axis=-1)
                 X = decoder_conf('u6', X, 64, F, 2, norm, reuse_decoder, is_train, self.args.dropout)               # 62  > 124
                 X = decoder_conf('d6', X, 64, 5, 1, norm, reuse_decoder, is_train, self.args.dropout)               # 124 > 128
-                X_END = X
+
                 X = decoder_conf('out', X, self.args.num_classes, 1, 1, '', reuse_decoder, is_train, slope=1.0, stddev=0.02,
                                 use_bias=False)
                 prediction = tf.nn.softmax(X, name = 'softmax')                
@@ -114,7 +114,7 @@ class Networks():
             # print('VNET Out:', X.get_shape().as_list())
 
         # if self.args.mode == 'adapt':
-            return X, X_EARLY, X_MIDDLE, X_END, prediction
+            return X, X_EARLY, X_MIDDLE, X_LATE, prediction
         # else:
         #     return X, prediction
 
@@ -158,8 +158,46 @@ class Networks():
 
             return X
 
+
+    def atrous_discriminator(self, X, reuse):
+
+        def atrous_convs(net, scope, rate=None, depth=256, reuse=None):
+            """
+            ASPP layer 1×1 convolution and three 3×3 atrous convolutions
+            """
+            with tf.variable_scope(scope, reuse=reuse):
+                
+                pyram_1x1_0 = self.conv('_1x1_0', net, depth, size=1, stride=1, padding="SAME")
+                pyram_3x3_1 = self.conv('_atr_3x3_1', net, depth, size=3, stride=1, padding="SAME", dilation=rate[0])
+                pyram_3x3_2 = self.conv('_atr_3x3_2', net, depth, size=3, stride=1, padding="SAME", dilation=rate[1])
+                pyram_3x3_3 = self.conv('_atr_3x3_3', net, depth, size=3, stride=1, padding="SAME", dilation=rate[2])
+
+                net = tf.concat((pyram_1x1_0, pyram_3x3_1, pyram_3x3_2, pyram_3x3_3), axis=3, name="concat")
+                net = self.conv('_1x1_output', net, depth, size=1, stride=1, padding="SAME")
+
+                return net
+        
+        with tf.variable_scope('discriminator') as scope:
+            if reuse:
+                scope.reuse_variables()
+
+            print('D in:', X.get_shape().as_list())
+
+            rate = [2, 3, 4]
+            X = atrous_convs(X, "d_atrous_0", rate = rate, depth=256, reuse=reuse)
+            X = tf.nn.leaky_relu(X, 0.2)
+            X = atrous_convs(X, "d_atrous_1", rate = rate, depth=256, reuse=reuse)
+            X = tf.nn.leaky_relu(X, 0.2)
+            X = atrous_convs(X, "d_atrous_2", rate = rate, depth=256, reuse=reuse)
+            X = tf.nn.leaky_relu(X, 0.2)
+            
+            X = self.conv('d_out', X, 256, size=1, stride=1, padding="SAME")
+            print('D out:', X.get_shape().as_list())
+
+            return X
+
+
     def conv(self, id, input, channels, size=3, stride=1, use_bias=True, padding="SAME", init_stddev=-1.0, dilation=1):
-        # regular conv with my favorite settings :)
 
         assert padding in ["SAME", "VALID", "REFLECT", "PARTIAL"], 'valid paddings: "SAME", "VALID", "REFLECT", "PARTIAL"'
         if type(size) == int: size = [size, size]
@@ -196,7 +234,7 @@ class Networks():
             pad_y = size[1] // 2
             input = tf.pad(input, [[0, 0], [pad_x, pad_x], [pad_y, pad_y], [0, 0]], "REFLECT")
             padding = "VALID"
-
+        
         return tf.layers.conv2d(input, channels, kernel_size=size, strides=[stride, stride],
                                 padding=padding, kernel_initializer=init, name='conv' + id,
                                 use_bias=use_bias, dilation_rate=(dilation, dilation))

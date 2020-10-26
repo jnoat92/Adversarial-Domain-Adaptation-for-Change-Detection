@@ -2,17 +2,16 @@
 import os
 import sys
 import numpy as np 
-
+import argparse
 import matplotlib.pyplot as plt
 
-#s_dataset, t_dataset = 'CERRADO_MA', 'AMAZON_RO'
-#s_dataset, t_dataset = 'CERRADO_MA', 'AMAZON_PA'
 
-s_dataset, t_dataset = 'AMAZON_RO', 'CERRADO_MA'
-#s_dataset, t_dataset = 'AMAZON_RO', 'AMAZON_PA'
+parser = argparse.ArgumentParser(description='')
+parser.add_argument('--s_dataset', type=str, choices=['AMAZON_RO', 'AMAZON_PA', 'CERRADO_MA'], default='AMAZON_RO', help='source dataset')
+parser.add_argument('--t_dataset', type=str, choices=['AMAZON_RO', 'AMAZON_PA', 'CERRADO_MA'], default='CERRADO_MA', help='target dataset')
+args = parser.parse_args()
 
-#s_dataset, t_dataset = 'AMAZON_PA', 'AMAZON_RO'
-#s_dataset, t_dataset = 'AMAZON_PA', 'CERRADO_MA'
+s_dataset, t_dataset = args.s_dataset, args.t_dataset
 
 
 labels = []
@@ -72,9 +71,9 @@ def Area_under_the_curve(X, Y):
                     
     X_ = np.concatenate((X_, X[-1:]))
     Y_ = np.concatenate((Y_, Y[-1:]))
-#    plt.figure(3); plt.stem(X, Y)
-#    plt.figure(4); plt.stem(X_, Y_)
-#    sys.exit()
+    # plt.figure(3); plt.stem(X, Y)
+    # plt.figure(4); plt.stem(X_, Y_)
+    # sys.exit()
     
     new_dx = np.diff(X_)
     area = 100 * np.inner(Y_[:-1], new_dx)
@@ -89,8 +88,8 @@ def Plot_curves(results_folders, output_folder):
 
     for rf in range(len(results_folders)):
                                 
-        precision = np.load(results_folders[rf] + '/Precision.npy').astype(np.float64) /   100
-        recall = np.load(results_folders[rf] + '/Recall.npy').astype(np.float64)       /   100
+        precision = np.load(results_folders[rf] + '/Precision.npy', allow_pickle=True).astype(np.float64) /   100
+        recall = np.load(results_folders[rf] + '/Recall.npy', allow_pickle=True).astype(np.float64)       /   100
         
         precision = correct_nan_values(precision, 1, 0)
         recall = correct_nan_values(recall, 0, 1)
@@ -104,8 +103,10 @@ def Plot_curves(results_folders, output_folder):
             precision_depr = np.concatenate((precision_depr[0:1], precision_depr), axis=0)
         
         mAP = Area_under_the_curve(recall, precision)
+        outline = labels[rf] + 'mAP: ' + str(np.round(mAP,1))
+        print(outline)
         plt.figure(1)
-        plt.plot(recall, precision, color=colors[rf], label=labels[rf] + 'mAP: ' + str(np.round(mAP,1)))
+        plt.plot(recall, precision, color=colors[rf], label=outline)
 
 #        mAP_d = Area_under_the_curve(recall, precision_depr)
 #        plt.figure(2)

@@ -78,16 +78,16 @@ class Models():
                 # Adversarial feature adaptation scheme
                 if self.args.match == 'early':
                     print('matching early representation')
-                    source_p_map = tf.sigmoid(self.networks.D_4(self.s_early, reuse=False))
-                    target_p_map = tf.sigmoid(self.networks.D_4(self.t_early, reuse=True))
+                    source_p_map = tf.sigmoid(self.networks.atrous_discriminator(self.s_early, reuse=False))
+                    target_p_map = tf.sigmoid(self.networks.atrous_discriminator(self.t_early, reuse=True))
                 elif self.args.match == 'middle':
                     print('matching middle representation')
-                    source_p_map = tf.sigmoid(self.networks.D_4(self.s_middle, reuse=False))
-                    target_p_map = tf.sigmoid(self.networks.D_4(self.t_middle, reuse=True))
+                    source_p_map = tf.sigmoid(self.networks.atrous_discriminator(self.s_middle, reuse=False))
+                    target_p_map = tf.sigmoid(self.networks.atrous_discriminator(self.t_middle, reuse=True))
                 else:
                     print('matching end representation')
-                    source_p_map = tf.sigmoid(self.networks.D_4(self.s_end, reuse=False))
-                    target_p_map = tf.sigmoid(self.networks.D_4(self.t_end, reuse=True))
+                    source_p_map = tf.sigmoid(self.networks.atrous_discriminator(self.s_end, reuse=False))
+                    target_p_map = tf.sigmoid(self.networks.atrous_discriminator(self.t_end, reuse=True))
 
                 # Variables
                 vars = tf.trainable_variables()
@@ -181,9 +181,11 @@ class Models():
 
     def load(self, checkpoint_dir, saver):
 
+        print('[*] Loading checkpoint...')
+        print(checkpoint_dir)
+        
         ckpt = tf.train.latest_checkpoint(checkpoint_dir)
         if ckpt:
-            print('[*] Loading checkpoint...')
             saver.restore(self.sess, ckpt)
             metas = []
             for file in os.listdir(checkpoint_dir):
@@ -475,10 +477,11 @@ class Models():
                                             feed_dict={self.s_image: s_data_batch, self.t_image: t_data_batch, self.learning_rate: lr})
                     g_loss_, reg_ = self.sess.run([self.g_loss, self.reg], 
                                             feed_dict={self.t_image: t_data_batch, self.learning_rate: lr})
-                    
 
                     print_line = "Epoch: [%2d] [%4d/%4d] lr: %.6f time: %4.4f, d_loss: %.8f, g_loss: %.8f, L1: %.8f\n" \
                                     % (e, b, num_tr_samples, lr, time.time() - start_time, d_loss_, g_loss_ - reg_, reg_)
+                    # print_line = "Epoch: [%2d] [%4d/%4d] lr: %.6f time: %4.4f, d_loss: %.8f, g_loss: %.8f, L1: %.8f\n" \
+                    #                 % (e, b, num_tr_samples, lr, time.time() - start_time, d_loss_, g_loss_, reg_)
                     print(print_line)
                     f.write(print_line)
 
