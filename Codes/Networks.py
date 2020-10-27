@@ -170,9 +170,11 @@ class Networks():
                 pyram_1x1_0 = self.conv('_1x1_0', net, depth, size=1, stride=1, padding="SAME")
                 pyram_3x3_1 = self.conv('_atr_3x3_1', net, depth, size=3, stride=1, padding="SAME", dilation=rate[0])
                 pyram_3x3_2 = self.conv('_atr_3x3_2', net, depth, size=3, stride=1, padding="SAME", dilation=rate[1])
-                pyram_3x3_3 = self.conv('_atr_3x3_3', net, depth, size=3, stride=1, padding="SAME", dilation=rate[2])
 
-                net = tf.concat((pyram_1x1_0, pyram_3x3_1, pyram_3x3_2, pyram_3x3_3), axis=3, name="concat")
+                # pyram_3x3_3 = self.conv('_atr_3x3_3', net, depth, size=3, stride=1, padding="SAME", dilation=rate[2])
+                # net = tf.concat((pyram_1x1_0, pyram_3x3_1, pyram_3x3_2, pyram_3x3_3), axis=3, name="concat")
+                net = tf.concat((pyram_1x1_0, pyram_3x3_1, pyram_3x3_2), axis=3, name="concat")
+
                 net = self.conv('_1x1_output', net, depth, size=1, stride=1, padding="SAME")
 
                 return net

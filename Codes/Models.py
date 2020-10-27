@@ -108,13 +108,13 @@ class Models():
 
                 # Defining the Optimizers
                 if self.args.optimizer == "Adam":
-                    self.d_optimizer = tf.train.AdamOptimizer(self.learning_rate/10, self.args.beta1, self.args.beta2).minimize(self.d_loss, var_list=self.d_vars)
+                    self.d_optimizer = tf.train.AdamOptimizer(self.learning_rate, self.args.beta1, self.args.beta2).minimize(self.d_loss, var_list=self.d_vars)
                     self.g_optimizer = tf.train.AdamOptimizer(self.learning_rate, self.args.beta1, self.args.beta2).minimize(self.g_loss, var_list=self.ada_vars)
                 elif self.args.optimizer == "Momentum":
-                    self.d_optimizer = tf.train.MomentumOptimizer(self.learning_rate/10, self.args.beta1).minimize(self.d_loss, var_list=self.d_vars)
+                    self.d_optimizer = tf.train.MomentumOptimizer(self.learning_rate, self.args.beta1).minimize(self.d_loss, var_list=self.d_vars)
                     self.g_optimizer = tf.train.MomentumOptimizer(self.learning_rate, self.args.beta1).minimize(self.g_loss, var_list=self.ada_vars)
                 else:
-                    self.d_optimizer = tf.train.GradientDescentOptimizer(self.learning_rate/10).minimize(self.d_loss, var_list=self.d_vars)
+                    self.d_optimizer = tf.train.GradientDescentOptimizer(self.learning_rate).minimize(self.d_loss, var_list=self.d_vars)
                     self.g_optimizer = tf.train.GradientDescentOptimizer(self.learning_rate).minimize(self.g_loss, var_list=self.ada_vars)
 
         # ============ Session and saver ================
