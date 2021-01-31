@@ -26,12 +26,13 @@ parser.add_argument('--batch_size', type=int, default=32, help='batch size for t
 parser.add_argument('--ada_batch_size', type=int, default=1, help='batch size for the adaptation')
 
 # Optimizer hyperparameters
-parser.add_argument('--lr', dest='lr', type=float, default=0.0001, help='initial learning rate')
 parser.add_argument('--beta1', dest='beta1', type=float, default=0.9, help='1st momentum term')
 parser.add_argument('--beta2', dest='beta2', type=float, default=0.999, help='2nd momentum term')
 parser.add_argument('--optimizer', choices=['Adam', 'Momentum', 'SGD'], default='Adam', help='network optimizer')
-parser.add_argument("--min_learning_rate", type=float, default=0.0)
-parser.add_argument("--lr_decay", type=float, default=0.0)
+parser.add_argument('--lr', dest='lr', type=float, default=1e-4, help='initial learning rate')
+parser.add_argument("--lr_decay", type=float, default=0.45, help='learning rate decay')
+parser.add_argument("--init_e", type=float, default=40, help='initial epoch')
+parser.add_argument("--epoch_drop", type=float, default=8, help='epochs between steps lr decay')
 
 # Image_processing hyperparameters
 parser.add_argument('--data_augmentation', dest='data_augmentation', type=eval, choices=[True, False], default=True, help='if data argumentation is applied to the data')
@@ -73,6 +74,7 @@ parser.add_argument("--skip_connections", help="use skip connections", type=int,
 parser.add_argument("--loss", type=str, choices=['cross_E', 'weighted'], default='weighted')
 parser.add_argument("--match", type=str, choices=['early', 'middle', 'end'], default='early')
 parser.add_argument("--L_lambda", type=float, default=2.0, help="lambda value for regularization")
+parser.add_argument("--margin", type=float, default=2.5, help="minimum margin for regularization")
 parser.add_argument("--mode", type=str, choices=['classifier', 'adaptation'], default='adaptation')
 
 args = parser.parse_args()
@@ -104,6 +106,7 @@ def main():
 
             # Checkpoint directory
             args.save_checkpoint_path = os.path.join(args.checkpoint_dir, run_sufix, args.mode)
+            
             if args.mode == 'adaptation':
                 args.save_checkpoint_path = os.path.join(args.save_checkpoint_path, args.match, '___Target_%s'%(args.t_dataset))
             if not os.path.exists(args.save_checkpoint_path): os.makedirs(args.save_checkpoint_path)

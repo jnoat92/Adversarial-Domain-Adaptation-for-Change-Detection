@@ -14,6 +14,7 @@ class Networks():
 
         def encoder_conf(name, X, filter, f_size, scale, norm, reuse, is_train, dropout=0.0, stddev=-1.0, slope=0.00,
                         use_bias=True):
+            
             with tf.variable_scope(name) as scope:
                 if scale > 1:
                     X = self.conv(name + '_downsample', X, filter, scale, scale, (not norm) and use_bias, "VALID", stddev)
@@ -143,13 +144,13 @@ class Networks():
 
             print('D in:', X.get_shape().as_list())
 
-            X = self.z_conv('DZ1', X, 512, 1, 1)
+            X = self.conv('DZ1', X, 512, 1, 1)
             X = tf.nn.leaky_relu(X, 0.2)
-            X = self.z_conv('DZ2', X, 512, 1, 1)
+            X = self.conv('DZ2', X, 512, 1, 1)
             X = tf.nn.leaky_relu(X, 0.2)
-            X = self.z_conv('DZ3', X, 512, 1, 1)
+            X = self.conv('DZ3', X, 512, 1, 1)
             X = tf.nn.leaky_relu(X, 0.2)
-            X = self.z_conv('DZ4', X, 512, 1, 1)
+            X = self.conv('DZ4', X, 512, 1, 1)
             X = tf.nn.leaky_relu(X, 0.2)
 
             X = discrim_conv('d_out', X, 1, 1, norm=False, nonlin=False, init_stddev=0.02)
@@ -167,15 +168,25 @@ class Networks():
             """
             with tf.variable_scope(scope, reuse=reuse):
                 
-                pyram_1x1_0 = self.conv('_1x1_0', net, depth, size=1, stride=1, padding="SAME")
-                pyram_3x3_1 = self.conv('_atr_3x3_1', net, depth, size=3, stride=1, padding="SAME", dilation=rate[0])
-                pyram_3x3_2 = self.conv('_atr_3x3_2', net, depth, size=3, stride=1, padding="SAME", dilation=rate[1])
-
-                # pyram_3x3_3 = self.conv('_atr_3x3_3', net, depth, size=3, stride=1, padding="SAME", dilation=rate[2])
-                # net = tf.concat((pyram_1x1_0, pyram_3x3_1, pyram_3x3_2, pyram_3x3_3), axis=3, name="concat")
-                net = tf.concat((pyram_1x1_0, pyram_3x3_1, pyram_3x3_2), axis=3, name="concat")
+                pyram_1x1_0 = self.conv('_1x1', net, depth, size=1, stride=1, padding="SAME")
+                pyram_3x3_1 = self.conv('_3x3', net, depth, size=3, stride=1, padding="SAME")
+                pyram_3x3_2 = self.conv('_atr_3x3_1', net, depth, size=3, stride=1, padding="SAME", dilation=rate[0])
+                pyram_3x3_3 = self.conv('_atr_3x3_2', net, depth, size=3, stride=1, padding="SAME", dilation=rate[1])
+                # pyram_3x3_4 = self.z_conv('_atr_3x3_3', net, depth/2, size=3, stride=1, padding="SAME", dilation=rate[2])
+                
+                net = tf.concat((pyram_1x1_0, pyram_3x3_1, pyram_3x3_2, pyram_3x3_3), axis=3, name="concat")
 
                 net = self.conv('_1x1_output', net, depth, size=1, stride=1, padding="SAME")
+
+                # pyram_1x1_0 = self.conv('_1x1', net, depth, size=1, stride=1, padding="SAME")
+                # pyram_3x3_1 = self.conv('_3x3', net, depth/2, size=3, stride=1, padding="SAME")
+                # pyram_3x3_2 = self.conv('_atr_3x3_1', net, depth/2, size=3, stride=1, padding="SAME", dilation=rate[0])
+                # pyram_3x3_3 = self.conv('_atr_3x3_2', net, depth/2, size=3, stride=1, padding="SAME", dilation=rate[1])
+                # # pyram_3x3_4 = self.conv('_atr_3x3_3', net, depth/2, size=3, stride=1, padding="SAME", dilation=rate[2])
+                
+                # net = tf.concat((pyram_1x1_0, pyram_3x3_1, pyram_3x3_2, pyram_3x3_3), axis=3, name="concat")
+
+                # net = self.conv('_1x1_output', net, depth, size=1, stride=1, padding="SAME")
 
                 return net
         
@@ -188,16 +199,17 @@ class Networks():
             rate = [2, 3, 4]
             X = atrous_convs(X, "d_atrous_0", rate = rate, depth=256, reuse=reuse)
             X = tf.nn.leaky_relu(X, 0.2)
-            X = atrous_convs(X, "d_atrous_1", rate = rate, depth=256, reuse=reuse)
+            X = self.conv('d_1', X, 512, size=1, stride=1, padding="SAME")
             X = tf.nn.leaky_relu(X, 0.2)
-            X = atrous_convs(X, "d_atrous_2", rate = rate, depth=256, reuse=reuse)
+            X = self.conv('d_2', X, 512, size=1, stride=1, padding="SAME")
+            X = tf.nn.leaky_relu(X, 0.2)
+            X = self.conv('d_3', X, 512, size=1, stride=1, padding="SAME")
             X = tf.nn.leaky_relu(X, 0.2)
             
-            X = self.conv('d_out', X, 256, size=1, stride=1, padding="SAME")
+            X = self.conv('d_out', X, 1, size=1, stride=1, padding="SAME")
             print('D out:', X.get_shape().as_list())
 
             return X
-
 
     def conv(self, id, input, channels, size=3, stride=1, use_bias=True, padding="SAME", init_stddev=-1.0, dilation=1):
 

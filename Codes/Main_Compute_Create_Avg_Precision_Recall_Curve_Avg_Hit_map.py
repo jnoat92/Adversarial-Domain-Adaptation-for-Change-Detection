@@ -15,14 +15,20 @@ s_dataset, t_dataset = args.s_dataset, args.t_dataset
 
 
 labels = []
-labels.append('1-Tr:T, Ts:T, ')
-labels.append('2-Tr:S, Ts:T, ')
-labels.append('3-ADDA, ')
+labels.append('1) Tr:T, Ts:T, ')
+labels.append('2) Tr:S, Ts:T, ')
+labels.append('3) ADDA, ')
 
 colors = []
-colors.append('#4169E1')
-colors.append('#00BFFF')
-colors.append('#FF0000')
+colors.append('tab:green')
+colors.append('tab:orange')
+colors.append('tab:blue')
+
+alias = {
+        'AMAZON_RO'  : 'RO',
+        'AMAZON_PA'  : 'PA',
+        'CERRADO_MA' : 'MA',
+        }
 
 def correct_nan_values(arr, before_value, last_value):
     
@@ -117,10 +123,11 @@ def Plot_curves(results_folders, output_folder):
     plt.ylim([0, 1])
     plt.xlim([0, 1])
     plt.grid(True)
-    plt.title('S: %s, T: %s'%(s_dataset, t_dataset))
+    plt.title('S: %s, T: %s'%(alias[s_dataset], alias[t_dataset]), fontsize="large")
     plt.ylabel('Precision')
     plt.xlabel('Recall')
-    plt.savefig(output_folder + '/Precision_vs_Recall___S_%s___T_%s.png'%(s_dataset, t_dataset), dpi=300)
+    plt.tight_layout()
+    plt.savefig(output_folder + '/Precision_vs_Recall___S_%s___T_%s.png'%(alias[s_dataset], alias[t_dataset]), dpi=300)
     plt.close()
 
 #    plt.figure(2)
@@ -151,8 +158,8 @@ if __name__ == '__main__':
         
         Plot_curves(results_folders, adapt_folder + '/graphics')
     
+    # ================= Scores per run =================
     if False:
-        # ================= Scores per run =================
         root_folder = '../results'
         files = os.listdir(root_folder + '/Source_%s' %(s_dataset))
         
@@ -162,12 +169,11 @@ if __name__ == '__main__':
             files_ = os.listdir(os.path.join(root_folder, 'Source_%s' %(s_dataset), files[i], 'adaptation'))
             # Loop for each match point ('early', 'middle', 'end')
             for j in range(len(files_)):
-        
-                adapt_folder = os.path.join(root_folder, 'Source_%s' %(s_dataset), files[i], 'adaptation', files[j], '___Target_%s' %(t_dataset))
+       
+                adapt_folder = os.path.join(root_folder, 'Source_%s' %(s_dataset), files[i], 'adaptation', files_[j], '___Target_%s' %(t_dataset))
                 results_folders = []
                 results_folders.append(os.path.join(root_folder, 'Source_%s' %(t_dataset), files[i], '___Target_%s' %(t_dataset)))
                 results_folders.append(os.path.join(root_folder, 'Source_%s' %(s_dataset), files[i], '___Target_%s' %(t_dataset)))
                 results_folders.append(adapt_folder)
 
                 Plot_curves(results_folders, adapt_folder + '/graphics')
-
