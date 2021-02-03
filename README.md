@@ -1,6 +1,7 @@
 # Adversarial discriminative domain adaptation for deforestation detection
 
-Implementation of the ADDA for domain adaptation scenarios oriented to deforestation detection. Folder
+Implementation of the ADDA for domain adaptation scenarios oriented to deforestation detection. Codes from 
+"Code_Wittich_PIA19" folder, with author https://github.com/denniswittich served as starter code for this project.
 
 ## Dependencies
 
