@@ -46,9 +46,12 @@ parser.add_argument('--buffer', dest='buffer', type=eval, choices=[True, False],
 parser.add_argument('--buffer_dimension_out', dest='buffer_dimension_out', type=int, default=4, help='Dimension of the buffer outside of the area')
 parser.add_argument('--buffer_dimension_in', dest='buffer_dimension_in', type=int, default=2, help='Dimension of the buffer inside of the area')
 
-parser.add_argument('--porcent_of_last_reference_in_actual_reference', dest='porcent_of_last_reference_in_actual_reference', type=int, default=100, help='Porcent of number of pixels of last reference in the actual reference')
-parser.add_argument('--porcent_of_positive_pixels_in_actual_reference', dest='porcent_of_positive_pixels_in_actual_reference', type=int, default=2, help='Porcent of number of pixels of last reference in the actual reference')
 parser.add_argument('--num_classes', dest='num_classes', type=int, default=2, help='Number of classes comprised in both domains')
+parser.add_argument('--percent_of_last_reference_in_actual_reference', dest='percent_of_last_reference_in_actual_reference', type=int, default=100, help='percent of number of pixels of last reference in the actual reference')
+parser.add_argument('--percent_of_positive_pixels_in_actual_reference', dest='percent_of_positive_pixels_in_actual_reference', type=int, default=2, help='minimum percent of pixels in source actual reference')
+
+parser.add_argument('--use_pseudoreference', dest='use_pseudoreference', type=eval, choices=[True, False], default=False, help='Use pseudolabel for selecting samples in target domain')
+parser.add_argument('--percent_of_positive_pixels_in_pseudoreference', dest='percent_of_positive_pixels_in_pseudoreference', type=int, default=2, help='minmum percent of pixels in target pseudoreference')
 
 # Phase
 parser.add_argument('--phase', dest='phase', default='train', choices=['train', 'test'])
@@ -78,7 +81,7 @@ parser.add_argument("--mode", type=str, choices=['classifier', 'adaptation'], de
 
 parser.add_argument('--eliminate_regions', dest='eliminate_regions', type=eval, choices=[True, False], default=True, help='Decide if small regions will be taken into account')
 parser.add_argument('--area_avoided', dest='area_avoided', type=int, default=69, help='area threshold that will be avoided')
-parser.add_argument('--Npoints', dest='Npoints', type=float, default=50, help='Number of thresholds used to compute the curves')
+parser.add_argument('--Npoints', dest='Npoints', type=int, default=50, help='Number of thresholds used to compute the curves')
 # parser.add_argument('--save_result_text', dest='save_result_text', type=eval, choices=[True, False], default = True, help='decide if a text file results is saved')
 
 args = parser.parse_args()
@@ -121,7 +124,7 @@ if __name__=='__main__':
     
     # ============== Loading Target dataset ===============
     dataset_loader = getattr(Datasets, args.t_dataset)
-    t_dataset = dataset_loader(args)
+    t_dataset = dataset_loader(args, 'target')
     t_dataset.Tiles_Configuration(args, 0)
     reference_t1 = t_dataset.references[0]
     reference_t2 = t_dataset.references[1]

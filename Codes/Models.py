@@ -122,7 +122,7 @@ class Models():
         # ============ Session and saver ================
         self.sess = tf.Session()
         self.sess.run(tf.global_variables_initializer())
-        self.saver = tf.train.Saver(max_to_keep=3)
+        self.saver = tf.train.Saver(max_to_keep=2)
 
         print('________%s--%s________' %(self.args.mode, self.args.phase))
         self.count_params(tf.trainable_variables())
@@ -404,7 +404,6 @@ class Models():
         t_data, _, t_num_batches_vl, t_corners_coordinates_tr, \
             t_corners_coordinates_vl, t_class_weights = self.Dataset_info(self.t_dataset)
         num_tr_samples = min(s_corners_coordinates_tr.shape[0], t_corners_coordinates_tr.shape[0])
-
 
         # Training loop
         d_loss_history = list(np.load(self.args.save_checkpoint_path + "/d_loss_history.npy")) if os.path.exists(self.args.save_checkpoint_path + "/d_loss_history.npy") else []

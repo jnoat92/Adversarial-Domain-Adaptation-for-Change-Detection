@@ -146,7 +146,8 @@ def mask_creation(mask_row, mask_col, num_patch_row, num_patch_col, Train_tiles,
         counter_r += 1
     return mask_array
 
-def Corner_Coordinates_Definition_Training(mask, last_reference, actual_reference, patch_dimension, overlap_porcent, porcent_of_last_reference_in_actual_reference, porcent_of_positive_pixels_in_actual_reference):
+def Corner_Coordinates_Definition_Training(mask, last_reference, actual_reference, patch_dimension, 
+                                           overlap_percent, percent_of_positive_pixels_in_actual_reference):
     
     mask_rows = np.size(mask, 0)
     mask_cols = np.size(mask, 1)
@@ -155,7 +156,7 @@ def Corner_Coordinates_Definition_Training(mask, last_reference, actual_referenc
     actual_reference[actual_reference == 2] = 0
     
     # Computing the overlaps and other things to extract patches
-    overlap = round(patch_dimension * overlap_porcent)
+    overlap = round(patch_dimension * overlap_percent)
     overlap -= overlap % 2
     stride = patch_dimension - overlap
     step_row = (stride - mask_rows % stride) % stride
@@ -191,7 +192,7 @@ def Corner_Coordinates_Definition_Training(mask, last_reference, actual_referenc
     # Refine the central pixels coordinates
     counter_tr = 0
     counter_vl = 0
-    positive_porcent_accumulated = 0
+    positive_percent_accumulated = 0
     for i in range(np.size(coordinates , 0)):
         mask_reference_value = mask_padded[int(coordinates[i , 0]) : int(coordinates[i , 2]) , int(coordinates[i , 1]) : int(coordinates[i , 3])]
         last_reference_value = last_reference_padded[int(coordinates[i , 0]) : int(coordinates[i , 2]) , int(coordinates[i , 1]) : int(coordinates[i , 3])]
@@ -200,32 +201,36 @@ def Corner_Coordinates_Definition_Training(mask, last_reference, actual_referenc
         test_pixels_indexs = np.transpose(np.array(np.where(mask_reference_value == 2)))
         if np.size(test_pixels_indexs,0) == 0:
             number_positives_actual_reference = np.sum(actual_reference_value)
-            porcent_of_positive_pixels_in_actual_reference_i = (number_positives_actual_reference/(patch_dimension * patch_dimension)) * 100
-            if porcent_of_positive_pixels_in_actual_reference_i > porcent_of_positive_pixels_in_actual_reference:
-                positive_porcent_accumulated += porcent_of_positive_pixels_in_actual_reference_i
+            percent_of_positive_pixels_in_actual_reference_i = (number_positives_actual_reference/(patch_dimension * patch_dimension)) * 100
+            if percent_of_positive_pixels_in_actual_reference_i > percent_of_positive_pixels_in_actual_reference:
+                positive_percent_accumulated += percent_of_positive_pixels_in_actual_reference_i
                 train_pixels_indexs = np.transpose(np.array(np.where(mask_reference_value == 1)))
-                valid_pixels_indexs = np.transpose(np.array(np.where(mask_reference_value == 3)))
-                porcent_of_training_pixels = (train_pixels_indexs.shape[0]/(patch_dimension * patch_dimension)) * 100
-                porcent_of_validation_pixels = (valid_pixels_indexs.shape[0]/(patch_dimension * patch_dimension)) * 100
-                if porcent_of_training_pixels > 70:
+                percent_of_training_pixels = (train_pixels_indexs.shape[0]/(patch_dimension * patch_dimension)) * 100
+                if percent_of_training_pixels > 70:
                     corners_coordinates_tr.append(coordinates[i , :])
-                if porcent_of_validation_pixels > 70:
-                    corners_coordinates_vl.append(coordinates[i , :])
                 counter_tr += 1            
-    
-    mean_positive_porcent = positive_porcent_accumulated/counter_tr
-    class_weights.append(mean_positive_porcent/100)
-    class_weights.append(1 - (mean_positive_porcent/100))
+
+            if percent_of_positive_pixels_in_actual_reference_i > 3:
+                valid_pixels_indexs = np.transpose(np.array(np.where(mask_reference_value == 3)))
+                percent_of_validation_pixels = (valid_pixels_indexs.shape[0]/(patch_dimension * patch_dimension)) * 100
+                if percent_of_validation_pixels > 70:
+                    corners_coordinates_vl.append(coordinates[i , :])
+
+
+
+    mean_positive_percent = positive_percent_accumulated/counter_tr
+    class_weights.append(mean_positive_percent/100)
+    class_weights.append(1 - (mean_positive_percent/100))
     
     return corners_coordinates_tr, corners_coordinates_vl, last_reference_padded, actual_reference_padded, pad_tuple, class_weights
 
-def Corner_Coordinates_Definition_Testing(mask, patch_dimension, overlap_porcent):
+def Corner_Coordinates_Definition_Testing(mask, patch_dimension, overlap_percent):
     
     mask_rows = np.size(mask, 0)
     mask_cols = np.size(mask, 1)
     
     # Computing the overlaps and other things to extract patches
-    overlap = round(patch_dimension * overlap_porcent)
+    overlap = round(patch_dimension * overlap_percent)
     overlap -= overlap % 2
     stride = patch_dimension - overlap
     step_row = (stride - mask_rows % stride) % stride

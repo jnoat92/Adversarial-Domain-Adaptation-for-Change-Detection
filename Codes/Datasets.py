@@ -10,8 +10,9 @@ from Tools import *
 
 class Dataset():
 
-    def __init__(self, args):
+    def __init__(self, args, domain):
         self.args = args
+        self.domain = domain
         self.images_norm = []
         self.references = []
         self.mask = []
@@ -33,7 +34,7 @@ class Dataset():
         image_t2 = image_t2[:,self.lims[0]:self.lims[1],self.lims[2]:self.lims[3]]
         reference_t1 = reference_t1[self.lims[0]:self.lims[1],self.lims[2]:self.lims[3]]
         reference_t2 = reference_t2[self.lims[0]:self.lims[1],self.lims[2]:self.lims[3]]
-        
+
         # Pre-processing references
         if self.args.buffer:
             print('[*]Computing buffer regions...')
@@ -78,6 +79,9 @@ class Dataset():
         self.references.append(reference_t1)
         self.references.append(reference_t2)
 
+        if self.args.use_pseudoreference and self.domain == 'target':
+            self.pseudoreference = np.load(self.args.dataset_main_path + self.folder + self.args.reference_section + self.pseudoreference_name + '.npy')
+
     def Tiles_Configuration(self, args, i):
         #Generating random training and validation tiles
         if args.phase == 'train' or args.phase == 'compute_metrics':
@@ -112,7 +116,24 @@ class Dataset():
         
         self.mask = mask_creation(self.images_norm[0].shape[0], self.images_norm[0].shape[1], self.horizontal_blocks, self.vertical_blocks, self.Train_tiles, self.Valid_tiles, self.Undesired_tiles)
         if args.phase == 'train':
-            self.corners_coordinates_tr, self.corners_coordinates_vl, reference1_, reference2_, self.pad_tuple, self.class_weights = Corner_Coordinates_Definition_Training(self.mask, self.references[0], self.references[1], args.patches_dimension, self.overlap_percent, args.porcent_of_last_reference_in_actual_reference, args.porcent_of_positive_pixels_in_actual_reference)
+            
+            if self.domain == 'source':
+                self.corners_coordinates_tr, self.corners_coordinates_vl, \
+                reference1_, reference2_, self.pad_tuple, self.class_weights = Corner_Coordinates_Definition_Training(self.mask, self.references[0], self.references[1], 
+                                                                                                                      args.patches_dimension, self.overlap_percent, 
+                                                                                                                      args.percent_of_positive_pixels_in_actual_reference)
+            elif self.domain == 'target':
+                if args.use_pseudoreference:
+                    # Use target pseudo-label for selecting samples and mitigate class imbalance
+                    self.corners_coordinates_tr, self.corners_coordinates_vl, \
+                    reference1_, reference2_, self.pad_tuple, self.class_weights = Corner_Coordinates_Definition_Training(self.mask, self.references[0], self.pseudoreference, 
+                                                                                                                        args.patches_dimension, self.overlap_percent, 
+                                                                                                                        args.percent_of_positive_pixels_in_pseudoreference)
+                else:
+                    # There is not label information about the target domain, NOTICE THAT minmum 'percent_of_positive_pixels_in_actual_reference' IS ZERO!!
+                    self.corners_coordinates_tr, self.corners_coordinates_vl, \
+                    reference1_, reference2_, self.pad_tuple, self.class_weights = Corner_Coordinates_Definition_Training(self.mask, self.references[0], self.references[1], 
+                                                                                                                        args.patches_dimension, self.overlap_percent, 0)
             sio.savemat(args.save_checkpoint_path + '/mask.mat', {'mask': self.mask})            
             self.references_.append(reference1_)
             self.references_.append(reference2_)    
@@ -127,14 +148,15 @@ class Dataset():
 
 class AMAZON_RO(Dataset):
     
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, domain):
+        super().__init__(args, domain)
         self.name = 'AMAZON_RO'
         self.folder = 'Amazonia_Legal/'
         self.data_t1_name = '18_07_2016_image_R232_67'
         self.data_t2_name = '21_07_2017_image_R232_67'
         self.reference_t1_name = 'PAST_REFERENCE_FROM_1988_2016_EPSG32620_R232_67'
         self.reference_t2_name = 'REFERENCE_2017_EPSG32620_R232_67'
+        self.pseudoreference_name = 'REFERENCE_2017_EPSG32620_CVA_OTSU'
         self.lims = np.array([1, 2551, 1, 5121])
         self.overlap_percent = 0.94
         self.vertical_blocks = 10
@@ -149,14 +171,15 @@ class AMAZON_RO(Dataset):
 
 class AMAZON_PA(Dataset):
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, domain):
+        super().__init__(args, domain)
         self.name = 'AMAZON_PA'
         self.folder = 'Amazonia_Legal/'
         self.data_t1_name = '02_08_2016_image_R225_62'
         self.data_t2_name = '20_07_2017_image_R225_62'
         self.reference_t1_name = 'PAST_REFERENCE_FROM_1988_2016_EPSG4674_R225_62'
         self.reference_t2_name = 'REFERENCE_2017_EPSG4674_R225_62'
+        self.pseudoreference_name = 'REFERENCE_2017_EPSG4674_R225_62_CVA_OTSU'
         self.lims = np.array([1, 1099, 0, 2600])
         self.overlap_percent = 0.96
         self.vertical_blocks = 5
@@ -171,14 +194,15 @@ class AMAZON_PA(Dataset):
  
 class CERRADO_MA(Dataset):
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, domain):
+        super().__init__(args, domain)
         self.name = 'CERRADO_MA'
         self.folder = 'Cerrado_Biome/'
         self.data_t1_name = '18_08_2017_image'
         self.data_t2_name = '21_08_2018_image'
         self.reference_t1_name = 'PAST_REFERENCE_FOR_2018_EPSG4674_R220_63'
         self.reference_t2_name = 'REFERENCE_2018_EPSG4674_R220_63'
+        self.pseudoreference_name = 'REFERENCE_2018_EPSG4674_R220_63_CVA_OTSU'
         self.lims = np.array([0, 1700, 0, 1440])
         self.overlap_percent = 0.96
         self.vertical_blocks = 3
