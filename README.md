@@ -11,7 +11,14 @@ Implementation of the ADDA for domain adaptation scenarios oriented to deforesta
 ## Datasets
 Land covers in Brazil.
 - Amazon Rainforest, Pará state (PA).
+
                 02/08/2016
                 20/07/2017
 - Amazon Rainforest, Rondônia state (RO).
+                
+                02/08/2016
+                20/07/2017
 - Cerrado Biome, Maranhão state (MA).
+                
+                02/08/2016
+                20/07/2017
