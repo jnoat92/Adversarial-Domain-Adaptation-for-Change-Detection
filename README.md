@@ -9,7 +9,7 @@ Implementation of the ADDA for domain adaptation scenarios oriented to deforesta
 - Tensorflow 1.14.0
 
 ## Datasets
-| Land covers in Brazil                 | Date t_0      | Date t_1      |
+| Land covers in Brazil                 | Date t1      | Date t2      |
 | -------------                         | ------------- | ------------- |
 | Amazon Rainforest, Pará state (PA)    | 02/08/2016    | 20/07/2017    |
 | Amazon Rainforest, Rondônia state (RO)| 18/07/2016    | 21/07/2017    |
