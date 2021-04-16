@@ -20,8 +20,8 @@ Land covers in Brazil.                            Date t_0          Date t_1
                 02/08/2016
                 20/07/2017
 
-| Land covers in Brazil  | Date t_0 |  | Date t_1 |
-| ------------- | ------------- |  | ------------- |
-| Amazon Rainforest, Pará state (PA)  | 02/08/2016  |  | 20/07/2017  |
-| Amazon Rainforest, Rondônia state (RO)  | Content Cell  |  | Content Cell  |
-| Cerrado Biome, Maranhão state (MA)  | Content Cell  |  | Content Cell  |
+| Land covers in Brazil  | Date t_0 | Date t_1 |
+| ------------- | ------------- | ------------- |
+| Amazon Rainforest, Pará state (PA)  | 02/08/2016  | 20/07/2017  |
+| Amazon Rainforest, Rondônia state (RO)  | Content Cell  | Content Cell  |
+| Cerrado Biome, Maranhão state (MA)  | Content Cell  | Content Cell  |
